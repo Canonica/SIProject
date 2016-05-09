@@ -17,10 +17,11 @@ public class XInput : MonoBehaviour
         buttondown = new bool[2];
         buttondown[0] = false;
         buttondown[1] = false;
-
-        vibePlayer = new int[2];
+        vibePlayer = new int[4];
         vibePlayer[0] = 0;
         vibePlayer[1] = 0;
+        vibePlayer[2] = 0;
+        vibePlayer[3] = 0;
     }
     
     void Update()
@@ -46,7 +47,7 @@ public class XInput : MonoBehaviour
         //GamePad.SetVibration(playerIndex, vibe.x, vibe.y);
 
         // Make the current object turn
-        transform.localRotation *= Quaternion.Euler(0.0f, state.ThumbSticks.Left.X * 25.0f * Time.deltaTime, 0.0f);
+        //transform.localRotation *= Quaternion.Euler(0.0f, state.ThumbSticks.Left.X * 25.0f * Time.deltaTime, 0.0f);
     }
 
     public void useVibe(int id, float time, float force1, float force2)
