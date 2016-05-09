@@ -109,16 +109,28 @@ public class XInput : MonoBehaviour
         }
 
     }
-    public float getXStick(int id = 0)
+    public float getXStickLeft(int id = 0)
     {
 
         return GamePad.GetState((PlayerIndex)(id - 1)).ThumbSticks.Left.X;
     }
 
-    public float getYStick(int id=0)
+    public float getYStickLeft(int id=0)
     {
         
        return GamePad.GetState((PlayerIndex)(id - 1)).ThumbSticks.Left.Y;
+    }
+
+    public float getXStickRight(int id = 0)
+    {
+
+        return GamePad.GetState((PlayerIndex)(id - 1)).ThumbSticks.Right.X;
+    }
+
+    public float getYStickRight(int id = 0)
+    {
+
+        return GamePad.GetState((PlayerIndex)(id - 1)).ThumbSticks.Right.Y;
     }
 
     IEnumerator vibration(PlayerIndex id, float time, float force1, float force2)
