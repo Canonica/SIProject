@@ -6,6 +6,7 @@ using XInputDotNetPure;
 public class Player : MonoBehaviour {
     public int _playerId;
     public GameObject _mesh;
+    public GameObject _meshShield;
 
     public float _speed;
     public float _rotateSpeed;
@@ -19,9 +20,10 @@ public class Player : MonoBehaviour {
     Vector3 _velocity;
 
     public bool m_needHelp;
-    bool m_hasShield;
-    bool m_isShielding;
+    public bool m_hasShield;
+    public bool m_isShielding;
     bool m_isMoving;
+    bool m_bumping;
 
     float delayToLaunch;
     // Use this for initialization
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour {
         m_isMoving = false;
         m_isShielding = false;
         m_hasShield = true;
+        _meshShield.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -59,6 +62,10 @@ public class Player : MonoBehaviour {
 
         if (m_hRight != 0 || m_vRight != 0 && m_hasShield)
         {
+            if(!m_isShielding)
+            {
+                StartCoroutine(ActivateBump(0.1f));
+            }
             m_isShielding = true;
         }
         else
@@ -80,6 +87,20 @@ public class Player : MonoBehaviour {
     private void playerRotate(float parAngle)
     {
         _mesh.transform.rotation = Quaternion.Slerp(_mesh.transform.rotation, Quaternion.Euler(0f, (parAngle * Mathf.Rad2Deg), 0f), _rotateSpeed);
+    }
+
+    IEnumerator ActivateBump(float parTimer)
+    {
+        float m_currentTime = 0;
+        while(m_currentTime < parTimer)
+        {
+            _meshShield.SetActive(true);
+            m_currentTime += 0.1f;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        _meshShield.SetActive(false);
+        
     }
 
 }
