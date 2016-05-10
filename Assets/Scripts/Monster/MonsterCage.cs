@@ -23,9 +23,17 @@ public class MonsterCage : Monster {
         parCage.transform.DOJump(parCage.transform.position + (transform.forward * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad));
     }
 
+    void OntTriggerEnter(Collider other)
+    {
+        if(other.tag == "DeathZone")
+        {
+            Death();
+        }
+    }
+
     public override void Death()
     {
-
+        Destroy(this.gameObject);
     }
 
     void OnCollisionEnter(Collision parCollision)
