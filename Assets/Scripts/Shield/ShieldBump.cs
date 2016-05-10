@@ -4,7 +4,9 @@ using DG.Tweening;
 
 public class ShieldBump : MonoBehaviour {
 
-    float m_bumpForce = 10f;
+    public float _bumpForce = 10f;
+    public float _bumpHeight;
+    public float _bumpTime;
 
     public void Bump(GameObject parEnemy)
     {
@@ -12,10 +14,8 @@ public class ShieldBump : MonoBehaviour {
         Vector3 m_tempPlayerPosition = transform.position;
         Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;
         //m_bumpDirection.Normalize();
-        Debug.Log(transform.forward);
-        Debug.DrawRay(transform.position, m_bumpDirection*10f, Color.red, 0.5f);
 
-        parEnemy.transform.DOJump(parEnemy.transform.position + (transform.forward* m_bumpForce), 3.0f, 1,0.4f).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad));
+        parEnemy.transform.DOJump(parEnemy.transform.position + (transform.forward* _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad));
 
     }
 

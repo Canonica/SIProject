@@ -20,8 +20,8 @@ public class Player : MonoBehaviour {
     Vector3 _velocity;
 
     public bool m_needHelp;
-    bool m_hasShield;
-    bool m_isShielding;
+    public bool m_hasShield;
+    public bool m_isShielding;
     bool m_isMoving;
     bool m_bumping;
 
