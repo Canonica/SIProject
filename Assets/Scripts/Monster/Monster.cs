@@ -8,6 +8,7 @@ abstract public class Monster : MonoBehaviour {
     public GameObject _target;
     public NavMeshAgent _agent;
 
+    abstract public void FindTarget();
     abstract public void Attack();
 
     abstract public void Death();

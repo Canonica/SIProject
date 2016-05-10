@@ -8,9 +8,11 @@ public class MonsterCage : Monster {
         _agent = this.GetComponent<NavMeshAgent>();
         _target = GameObject.Find("Cage");
         InvokeRepeating("FindTarget", 0.5f, 0.5f);
+        
+        
 	}
 
-    void FindTarget()
+    public override void FindTarget()
     {
         _agent.SetDestination(_target.transform.position);
     }
