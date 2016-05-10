@@ -5,6 +5,7 @@ public class PlayerManager : MonoBehaviour {
     private static PlayerManager _instance = null;
 
     public List<Player> _playerList = new List<Player>();
+    public int m_nbOfPlayerAlive;
     // Use this for initialization
     void Awake()
     {
@@ -25,8 +26,15 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update () {
-	
-	}
+    public void NumberOfPlayerAlive()
+    {
+        m_nbOfPlayerAlive = 0;
+        foreach (Player parPlayers in _playerList)
+        {
+            if (parPlayers.m_needHelp)
+            {
+                m_nbOfPlayerAlive++;
+            }
+        }
+    }
 }

@@ -19,7 +19,7 @@ public class Player : MonoBehaviour {
     Rigidbody m_rigidbody;
     Vector3 _velocity;
 
-    bool m_needHelp;
+    public bool m_needHelp;
     bool m_hasShield;
     bool m_isShielding;
     bool m_isMoving;
