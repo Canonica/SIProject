@@ -6,6 +6,12 @@ public class PlayerManager : MonoBehaviour {
 
     public List<Player> _playerList = new List<Player>();
     public int m_nbOfPlayerAlive;
+
+    public static PlayerManager GetInstance()
+    {
+        return _instance;
+    }
+
     // Use this for initialization
     void Awake()
     {

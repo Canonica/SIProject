@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(NavMeshAgent))]
 abstract public class Monster : MonoBehaviour {
 
     public bool _isBumped;
@@ -8,8 +9,13 @@ abstract public class Monster : MonoBehaviour {
     public GameObject _target;
     public NavMeshAgent _agent;
 
+    public float _bumpForce;
+    public float _counterBumpForce;
+    public float _bumpHeight;
+    public float _bumpTime;
+
     abstract public void FindTarget();
-    abstract public void Attack();
+    abstract public void Attack(GameObject parTarget);
 
     abstract public void Death();
 	

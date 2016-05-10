@@ -6,7 +6,9 @@ using XInputDotNetPure;
 public class Player : MonoBehaviour {
     public int _playerId;
     public GameObject _mesh;
+    public GameObject _meshTriggerShield;
     public GameObject _meshShield;
+
 
     public float _speed;
     public float _rotateSpeed;
@@ -32,7 +34,7 @@ public class Player : MonoBehaviour {
         m_isMoving = false;
         m_isShielding = false;
         m_hasShield = true;
-        _meshShield.SetActive(false);
+        _meshTriggerShield.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -50,8 +52,11 @@ public class Player : MonoBehaviour {
 
         _velocity = (_movHorizontal + _movVertical).normalized;
         transform.position = transform.position + _velocity * _speed *  Time.deltaTime;
+        Debug.Log(m_isShielding);
+        _meshShield.SetActive(m_isShielding);
+       
 
-        if(m_vLeft !=0 || m_hLeft != 0)
+        if (m_vLeft !=0 || m_hLeft != 0)
         {
             m_isMoving = true;
         }
@@ -67,6 +72,7 @@ public class Player : MonoBehaviour {
                 StartCoroutine(ActivateBump(0.1f));
             }
             m_isShielding = true;
+            
         }
         else
         {
@@ -94,12 +100,12 @@ public class Player : MonoBehaviour {
         float m_currentTime = 0;
         while(m_currentTime < parTimer)
         {
-            _meshShield.SetActive(true);
+            _meshTriggerShield.SetActive(true);
             m_currentTime += 0.1f;
             yield return new WaitForSeconds(0.1f);
         }
 
-        _meshShield.SetActive(false);
+        _meshTriggerShield.SetActive(false);
         
     }
 
