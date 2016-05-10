@@ -20,8 +20,16 @@ public class MonsterCage : Monster {
 
     }
 
+    void OntTriggerEnter(Collider other)
+    {
+        if(other.tag == "DeathZone")
+        {
+            Death();
+        }
+    }
+
     public override void Death()
     {
-
+        Destroy(this.gameObject);
     }
 }

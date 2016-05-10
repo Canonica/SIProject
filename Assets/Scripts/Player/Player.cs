@@ -3,7 +3,8 @@ using System.Collections;
 using DG.Tweening;
 using XInputDotNetPure;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
     public int _playerId;
     public GameObject _mesh;
     public GameObject _meshShield;
@@ -25,18 +26,31 @@ public class Player : MonoBehaviour {
     bool m_isMoving;
     bool m_bumping;
 
+    bool m_isFlying;
+
     float delayToLaunch;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         m_rigidbody = this.GetComponent<Rigidbody>();
         m_isMoving = false;
         m_isShielding = false;
         m_hasShield = true;
+        m_isFlying = false;
         _meshShield.SetActive(false);
+        CheckUnder();
+        InvokeRepeating("CheckUnder", 0.5f, 0.5f);
+       
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
+        Debug.Log(m_isFlying);
+        if (m_isFlying)
+        {
+            this.transform.position = transform.position + -transform.up * _speed * Time.deltaTime;
+        }
         m_vLeft = XInput.instance.getYStickLeft(_playerId);
         m_hLeft = XInput.instance.getXStickLeft(_playerId);
 
@@ -49,9 +63,9 @@ public class Player : MonoBehaviour {
         float angleTLeft = Mathf.Atan2(m_hLeft, m_vLeft);
 
         _velocity = (_movHorizontal + _movVertical).normalized;
-        transform.position = transform.position + _velocity * _speed *  Time.deltaTime;
+        transform.position = transform.position + _velocity * _speed * Time.deltaTime;
 
-        if(m_vLeft !=0 || m_hLeft != 0)
+        if (m_vLeft != 0 || m_hLeft != 0)
         {
             m_isMoving = true;
         }
@@ -62,7 +76,7 @@ public class Player : MonoBehaviour {
 
         if (m_hRight != 0 || m_vRight != 0 && m_hasShield)
         {
-            if(!m_isShielding)
+            if (!m_isShielding)
             {
                 StartCoroutine(ActivateBump(0.1f));
             }
@@ -77,7 +91,7 @@ public class Player : MonoBehaviour {
         {
             playerRotate(angleTRight);
         }
-        else if(m_isMoving)
+        else if (m_isMoving)
         {
             playerRotate(angleTLeft);
         }
@@ -92,7 +106,7 @@ public class Player : MonoBehaviour {
     IEnumerator ActivateBump(float parTimer)
     {
         float m_currentTime = 0;
-        while(m_currentTime < parTimer)
+        while (m_currentTime < parTimer)
         {
             _meshShield.SetActive(true);
             m_currentTime += 0.1f;
@@ -100,7 +114,31 @@ public class Player : MonoBehaviour {
         }
 
         _meshShield.SetActive(false);
-        
+
     }
 
+    void CheckUnder()
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, _mesh.gameObject.GetComponent<BoxCollider>().size.x / 2, -transform.up, out hit, 1))
+        {
+            if(hit.transform.tag == "Ground")
+            {
+                m_isFlying = false;
+            }
+        }
+        else
+        {
+            m_isFlying = true;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.name == "DeathZone")
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
+
