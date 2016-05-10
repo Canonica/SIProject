@@ -7,33 +7,44 @@ public class SpawnMonster : MonoBehaviour {
     public int maxMonster;
     public int currentMonster;
     public float delayBetweenMonster;
-    public List<MonsterCage> _monsterList = new List<MonsterCage>();
-    public GameObject _monsterPrefab;
+    public List<GameObject> _monsterList = new List<GameObject>();
+    public List<GameObject> _spawnerList = new List<GameObject>();
+    public GameObject _monsterCagePrefab;
+    public GameObject _monsterPlayerPrefab;
 
     bool isSpawning;
 	// Use this for initialization
 	void Start () {
         isSpawning = true;
-        StartCoroutine(SpawnMob(maxMonster, delayBetweenMonster));
+        GameObject[] tempSpawn = GameObject.FindGameObjectsWithTag("Spawner");
+        foreach (GameObject parSpawner in tempSpawn)
+        {
+            _spawnerList.Add(parSpawner);
+        }
+        StartSpawning();
         
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
+    public void StartSpawning()
+    {
+        StartCoroutine(SpawnMob(maxMonster, delayBetweenMonster));
+    }
+
     IEnumerator SpawnMob(int parMaxMonster, float parDelayBetweenMonster)
     {
-        Debug.Log("1");
         while (isSpawning)
         {
-            Debug.Log("2");
+            int randomSpawner = Random.Range(0, _spawnerList.Count);
             if (currentMonster < parMaxMonster)
             {
-                GameObject tempMonster = Instantiate(_monsterPrefab, this.transform.position, Quaternion.identity) as GameObject;
-                MonsterCage tempMonsterComponent = tempMonster.GetComponent<MonsterCage>();
-                _monsterList.Add(tempMonsterComponent);
+                GameObject tempMonster = Instantiate(_monsterCagePrefab, _spawnerList[randomSpawner].transform.position, Quaternion.identity) as GameObject;
+                _monsterList.Add(tempMonster);
                 currentMonster++;
             }
             yield return new WaitForSeconds(parDelayBetweenMonster);
