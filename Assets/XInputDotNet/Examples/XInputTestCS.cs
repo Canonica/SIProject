@@ -31,6 +31,7 @@ public class XInputTestCS : MonoBehaviour
                     playerIndex = testPlayerIndex;
                     playerIndexSet = true;
                 }
+
             }
         }
 

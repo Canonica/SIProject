@@ -9,7 +9,7 @@ public class MonsterPlayer : Monster {
     {
 
         _agent = this.GetComponent<NavMeshAgent>();
-        int randPlayer = Random.Range(1, PlayerManager.GetInstance()._playerList.Count);
+        int randPlayer = Random.Range(1, PlayerManager.GetInstance()._playerList.Count+1);
         _target = GameObject.Find("Player" + randPlayer);
         InvokeRepeating("FindTarget", 0.5f, 0.5f);
         InvokeRepeating("CheckUnder", 0.5f, 0.5f);

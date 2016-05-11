@@ -36,9 +36,11 @@ public class XInput : MonoBehaviour
                 GamePadState testState = GamePad.GetState(testPlayerIndex);
                 if (testState.IsConnected)
                 {
+                    
                     playerIndex = testPlayerIndex;
                     playerIndexSet = true;
                 }
+                state = GamePad.GetState(playerIndex);
             }
         }
         prevState = state;
@@ -78,7 +80,8 @@ public class XInput : MonoBehaviour
                 
             case 'Y':
                 return GamePad.GetState((PlayerIndex)id ).Buttons.Y;
-
+            case 'S':
+                return GamePad.GetState((PlayerIndex)id).Buttons.Start;
             default:
                 Debug.Log("ERROR X INPUT");
                 return ButtonState.Released;
