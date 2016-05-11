@@ -2,7 +2,6 @@
 using System.Collections;
 using DG.Tweening;
 
-
 public class MonsterPlayer : Monster {
     public float _bumpMultiplier;
 
@@ -13,14 +12,33 @@ public class MonsterPlayer : Monster {
         int randPlayer = Random.Range(1, PlayerManager.GetInstance()._playerList.Count);
         _target = GameObject.Find("Player" + randPlayer);
         InvokeRepeating("FindTarget", 0.5f, 0.5f);
+        InvokeRepeating("CheckUnder", 0.5f, 0.5f);
 
 
+    }
+
+    public override IEnumerator Stun(float parTime)
+    {
+        if(_agent.enabled)
+        {
+            _agent.Stop();
+        }
+
+        yield return new WaitForSeconds(parTime);
+
+        if (_agent.enabled)
+        {
+            _agent.ResetPath();
+            FindTarget();
+        }
+        
     }
 
     public override void FindTarget()
     {
         if(_target != null)
         {
+            _agent.ResetPath();
             _agent.SetDestination(_target.transform.position);
         }else
         {
@@ -72,6 +90,39 @@ public class MonsterPlayer : Monster {
             {
                 Attack(parCollision.gameObject.transform.parent.gameObject);
             }
+        }
+    }
+
+    void CheckUnder()
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, this.gameObject.GetComponent<BoxCollider>().extents.x, -transform.up, out hit, 3f))
+        {
+
+            if (hit.transform.tag == "Ground")
+            {
+
+                this.m_isFlying = false;
+            }
+        }
+        else
+        {
+            if (_agent.enabled)
+            {
+                this._agent.Stop();
+            }
+
+            CancelInvoke("FindTarget");
+            _agent.enabled = false;
+            this.m_isFlying = true;
+        }
+    }
+
+    void Update()
+    {
+        if (this.m_isFlying)
+        {
+            this.transform.position = transform.position + -transform.up * _speed * Time.deltaTime;
         }
     }
 }
