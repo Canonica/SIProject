@@ -20,6 +20,7 @@ public class ShieldBounce : MonoBehaviour {
     float m_currentDistanceMin = Mathf.Infinity;
     Vector3 m_targetPos;
     GameObject m_target;
+    public List<GameObject> m_listOfMonstersHit;
 
     public List<GameObject> m_tempListOfMonsters;
 
@@ -29,6 +30,7 @@ public class ShieldBounce : MonoBehaviour {
         m_back = false;
         m_targeting = false;
         m_tempListOfMonsters = new List<GameObject>(MonsterManager.GetInstance()._listOfMonster);
+        m_listOfMonstersHit = new List<GameObject>();
         m_rigidBody = GetComponent<Rigidbody>();
         transform.DOMove(transform.position + m_owner.transform.forward * m_range, 0.5f).OnComplete(() => CheckHit());
     }
@@ -43,18 +45,21 @@ public class ShieldBounce : MonoBehaviour {
     {
         if(parCollider.gameObject.tag =="Enemy")
         {
+            transform.DOKill();
             m_hit = true;
             m_bounceCount++;
-            Vector3 m_tempEnemyPosition = parCollider.transform.position;
-            Vector3 m_tempPlayerPosition = transform.position;
+            Vector3 m_tempEnemyPosition = new Vector3(parCollider.transform.position.x, 0, parCollider.transform.position.z) ;
+            Vector3 m_tempPlayerPosition = new Vector3(transform.position.x,0, transform.position.z);
             Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;
             m_bumpDirection.Normalize();
 
-            parCollider.transform.DOMove(m_bumpDirection* m_bumpForce, 0.5f);
+            StartCoroutine(parCollider.GetComponent<Monster>().Stun(0.6f));
+            parCollider.transform.DOMove(parCollider.transform.position+ m_bumpDirection * m_bumpForce, 0.5f);
 
+            m_listOfMonstersHit.Add(parCollider.gameObject);
             m_tempListOfMonsters.Remove(parCollider.gameObject);
 
-            if(!m_back && m_bounceCount < m_maxBounceCount)
+            if(!m_back && m_bounceCount < m_maxBounceCount && MonsterManager.GetInstance()._listOfMonster.Count >0)
             {
 
                 m_targeting = true;
@@ -82,16 +87,24 @@ public class ShieldBounce : MonoBehaviour {
 
     void FindOtherEnemy()
     {
-        if(MonsterManager.GetInstance()._listOfMonster.Count > 0)
+        m_tempListOfMonsters = new List<GameObject>(MonsterManager.GetInstance()._listOfMonster);
+        if (m_tempListOfMonsters.Count > 0)
         {
             foreach(GameObject parMonster in m_tempListOfMonsters)
             {
-                float m_distance = Vector3.Distance(transform.position, parMonster.transform.position);
-                if(m_distance < m_currentDistanceMin)
+                for(int i=0; i < m_listOfMonstersHit.Count; i++)
                 {
-                    m_target = parMonster;
-                    m_currentDistanceMin = m_distance;
+                    if(!m_listOfMonstersHit.Contains(parMonster))
+                    {
+                        float m_distance = Vector3.Distance(transform.position, parMonster.transform.position);
+                        if (m_distance < m_currentDistanceMin)
+                        {
+                            m_target = parMonster;
+                            m_currentDistanceMin = m_distance;
+                        }
+                    }
                 }
+                
             }
             m_currentDistanceMin = Mathf.Infinity;
         }
@@ -102,10 +115,17 @@ public class ShieldBounce : MonoBehaviour {
         
         if(m_targeting)
         {
-            transform.position = Vector3.MoveTowards(transform.position, m_target.transform.position, m_speed * Time.deltaTime);
+            if(m_target != null && !m_target.GetComponent<Monster>().m_isFlying)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, m_target.transform.position, m_speed * Time.deltaTime);
+            }else
+            {
+                m_back = true;
+                m_targeting = false;
+            }
+            
         }else if (m_back && !m_owner.transform.parent.GetComponent<Player>().m_hasShield)
         {
-            Debug.Log("back");
             transform.position = Vector3.MoveTowards(transform.position, m_owner.transform.position, m_speed * Time.deltaTime);
             if (Vector3.Distance(transform.position, m_owner.transform.position) <= 0.2f)
             {

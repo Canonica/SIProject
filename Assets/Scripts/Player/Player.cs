@@ -166,7 +166,7 @@ public class Player : MonoBehaviour {
         {
             if (_isBumped)
             {
-                parCollision.gameObject.GetComponent<NavMeshAgent>().Stop();
+                //parCollision.gameObject.GetComponent<NavMeshAgent>().Stop();
 
                 Vector3 m_tempEnemyPosition = new Vector3(parCollision.transform.position.x, 0, parCollision.transform.position.z);
                 Vector3 m_tempPlayerPosition = new Vector3(transform.position.x, 0, transform.position.z);
@@ -180,7 +180,7 @@ public class Player : MonoBehaviour {
                 if (behind < 0)
                 {
                     parCollision.transform.DOMove(parCollision.transform.position + m_bumpDirection * _bumpMultiplier 
-                        , 1f).SetEase(Ease.OutQuint).OnComplete(() => parCollision.gameObject.GetComponent<NavMeshAgent>().Resume());
+                        , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parCollision.gameObject.GetComponent<Monster>().Stun(1.0f)));
                 }
             }
         }
