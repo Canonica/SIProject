@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class MonsterCage : Monster {
 
-	void Start () {
+    void Start () {
         _agent = this.GetComponent<NavMeshAgent>();
         _target = GameObject.Find("Cage");
         InvokeRepeating("FindTarget", 0.5f, 0.5f);
@@ -20,7 +20,10 @@ public class MonsterCage : Monster {
 
     public override void Attack(GameObject parCage)
     {
-        parCage.transform.DOJump(parCage.transform.position + (transform.forward * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad));
+        parCage.GetComponent<Player>()._currentBumpDirection = transform.position - parCage.transform.position;
+        parCage.GetComponent<Player>()._isBumped = true;
+        parCage.transform.DOJump(parCage.transform.position + (transform.forward * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad))
+            .OnComplete(() => parCage.GetComponent<Player>()._isBumped = false);
     }
 
     void OntTriggerEnter(Collider other)
@@ -42,14 +45,12 @@ public class MonsterCage : Monster {
 
         if (parCollision.transform.parent != null && parCollision.gameObject.transform.parent.gameObject.tag == "Player")
         {
-            Debug.Log(parCollision.gameObject.tag);
             if (Vector3.Dot(transform.forward, parCollision.transform.forward) <= -0.75f && parCollision.gameObject.transform.parent.GetComponent<Player>().m_isShielding)
             {
                 transform.DOMove(transform.position - (transform.forward * _counterBumpForce), 0.3f).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad));
             }
-            else
+            else if(!parCollision.gameObject.transform.parent.gameObject.GetComponent<Player>()._isBumped)
             {
-                Debug.Log(parCollision.gameObject.tag);
                 Attack(parCollision.gameObject.transform.parent.gameObject);
             }
         }

@@ -13,7 +13,6 @@ public class ShieldBump : MonoBehaviour {
         Vector3 m_tempEnemyPosition = parEnemy.transform.position;
         Vector3 m_tempPlayerPosition = transform.position;
         Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;
-        //m_bumpDirection.Normalize();
 
         parEnemy.transform.DOJump(parEnemy.transform.position + (transform.forward* _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad));
 
