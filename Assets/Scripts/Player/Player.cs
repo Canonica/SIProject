@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
 
     Rigidbody m_rigidbody;
     Vector3 _velocity;
+    CharacterController characterController;
 
     public bool m_needHelp;
     public bool m_hasShield;
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour {
     // Use this for initialization
     void Start () {
         m_rigidbody = this.GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
         m_isMoving = false;
         m_isShielding = false;
         m_hasShield = true;
@@ -49,6 +51,10 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (_isBumped)
+        {
+            CheckCollision(_currentBumpDirection);
+        }
 
         if (m_isFlying)
         {
@@ -61,7 +67,7 @@ public class Player : MonoBehaviour {
         m_vRight = XInput.instance.getYStickRight(_playerId);
         m_hRight = XInput.instance.getXStickRight(_playerId);
 
-        m_fire = XInput.instance.getTrigger(1);
+        m_fire = XInput.instance.getTrigger(_playerId);
 
         Vector3 _movHorizontal = transform.right * m_hLeft;
         Vector3 _movVertical = transform.forward * m_vLeft;
@@ -69,8 +75,9 @@ public class Player : MonoBehaviour {
         float angleTLeft = Mathf.Atan2(m_hLeft, m_vLeft);
 
         _velocity = (_movHorizontal + _movVertical).normalized;
-        transform.position = transform.position + _velocity * _speed *  Time.deltaTime;
-        _meshShield.SetActive(m_isShielding);
+        characterController.Move(_velocity * _speed * Time.deltaTime);
+        //transform.position = transform.position + _velocity * _speed *  Time.deltaTime;
+        _meshShield.SetActive(m_isShielding && m_hasShield);
        
         if(m_fire > 0.2f && m_hasShield)
         {
@@ -114,6 +121,21 @@ public class Player : MonoBehaviour {
             this.transform.position = transform.position + -transform.up * _speed * Time.deltaTime;
         }
 
+    }
+
+    void CheckCollision(Vector3 parDirection)
+    {
+        RaycastHit m_hit;
+        if (Physics.SphereCast(transform.position, gameObject.transform.GetChild(0).GetComponent<CapsuleCollider>().radius, parDirection, out m_hit, Mathf.Infinity))
+        {
+            if ((m_hit.collider.tag == "Obstacle" || m_hit.collider.name == "Cage") && m_hit.distance <= gameObject.transform.GetChild(0).GetComponent<CapsuleCollider>().radius + 0.1f)
+            {
+                Vector3 _tempPosition = transform.position;
+                transform.DOKill(true);
+                transform.DOMove(_tempPosition, 0.0f).OnComplete(() => _isBumped = false);
+
+            }
+        }
     }
 
     private void playerRotate(float parAngle)
@@ -160,7 +182,6 @@ public class Player : MonoBehaviour {
 
     public void OnCollisionEnter(Collision parCollision)
     {
-        //Debug.Log(parCollision.gameObject.tag);
 
         if (parCollision.gameObject.tag == "Enemy")
         {
@@ -182,6 +203,24 @@ public class Player : MonoBehaviour {
                     parCollision.transform.DOMove(parCollision.transform.position + m_bumpDirection * _bumpMultiplier 
                         , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parCollision.gameObject.GetComponent<Monster>().Stun(1.0f)));
                 }
+            }
+        }
+        if (parCollision.gameObject.name == "Cage")
+        {
+            _isBumped = true;
+            Vector3 m_tempDirection = transform.position - parCollision.transform.position;
+           
+            _currentBumpDirection = m_tempDirection;
+            m_tempDirection.Normalize();
+           
+
+            if (Vector3.Dot(m_tempDirection, transform.GetChild(0).transform.forward) <= -0.75f && m_isShielding && m_hasShield)
+            {
+                Vector3 _tempPosition = parCollision.transform.position;
+                parCollision.transform.DOKill(true);
+                parCollision.transform.DOMove(_tempPosition, 0.0f);
+                transform.DOMove(transform.position + m_tempDirection*0.5f, 0.2f);
+                parCollision.gameObject.GetComponent<Cage>()._isBumped = false;
             }
         }
     }

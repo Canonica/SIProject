@@ -14,6 +14,7 @@ abstract public class Monster : MonoBehaviour {
     public float _counterBumpForce;
     public float _bumpHeight;
     public float _bumpTime;
+    public Vector3 _currentBumpDirection;
 
     abstract public void FindTarget();
     abstract public void Attack(GameObject parTarget);

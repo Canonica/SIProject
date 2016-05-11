@@ -7,8 +7,8 @@ using DG.Tweening;
 public class ShieldBounce : MonoBehaviour {
 
     float m_bumpForce = 10f;
-    public float m_bounceCount;
-    float m_maxBounceCount = 3;
+    public int m_bounceCount = 0;
+    int m_maxBounceCount = 3;
     float m_range = 10.0f;
     public bool m_hit;
     public bool m_back;
@@ -45,16 +45,24 @@ public class ShieldBounce : MonoBehaviour {
     {
         if(parCollider.gameObject.tag =="Enemy")
         {
-            transform.DOKill();
+            Vector3 _tempPosition = transform.position;
+            transform.DOKill(true);
+            
+            transform.DOMove(_tempPosition, 0.0f);
+
             m_hit = true;
             m_bounceCount++;
+
             Vector3 m_tempEnemyPosition = new Vector3(parCollider.transform.position.x, 0, parCollider.transform.position.z) ;
             Vector3 m_tempPlayerPosition = new Vector3(transform.position.x,0, transform.position.z);
             Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;
             m_bumpDirection.Normalize();
 
             StartCoroutine(parCollider.GetComponent<Monster>().Stun(0.6f));
-            parCollider.transform.DOMove(parCollider.transform.position+ m_bumpDirection * m_bumpForce, 0.5f);
+
+            parCollider.GetComponent<Monster>()._currentBumpDirection = -m_bumpDirection;
+            parCollider.GetComponent<Monster>()._isBumped = true;
+            parCollider.transform.DOMove(parCollider.transform.position- m_bumpDirection * m_bumpForce, 0.5f).OnComplete(() => parCollider.GetComponent<Monster>()._isBumped = false);
 
             m_listOfMonstersHit.Add(parCollider.gameObject);
             m_tempListOfMonsters.Remove(parCollider.gameObject);
@@ -66,7 +74,6 @@ public class ShieldBounce : MonoBehaviour {
                 FindOtherEnemy();
             }else
             {
-                Debug.Log(m_bounceCount);
                 m_targeting = false;
                 m_back = true;
             }
@@ -99,6 +106,7 @@ public class ShieldBounce : MonoBehaviour {
                         float m_distance = Vector3.Distance(transform.position, parMonster.transform.position);
                         if (m_distance < m_currentDistanceMin)
                         {
+                    
                             m_target = parMonster;
                             m_currentDistanceMin = m_distance;
                         }
@@ -106,6 +114,7 @@ public class ShieldBounce : MonoBehaviour {
                 }
                 
             }
+           
             m_currentDistanceMin = Mathf.Infinity;
         }
     }

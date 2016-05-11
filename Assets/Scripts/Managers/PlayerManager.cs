@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour {
 
     void OnLevelWasLoaded(int level)
     {
-        if(level == 1)
+        if(level == 2)
         {
             GameObject[] tempPlayers = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject parPlayers in tempPlayers)
