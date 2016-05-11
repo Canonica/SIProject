@@ -9,14 +9,15 @@ public class Player : MonoBehaviour {
     public GameObject _meshTriggerShield;
     public GameObject _meshShield;
 
-
     public float _speed;
     public float _rotateSpeed;
 
-    float m_hLeft;
-    float m_vLeft;
-    float m_hRight;
-    float m_vRight;
+    private float m_CurrentSpeed;
+
+    public float m_hLeft;
+    public float m_vLeft;
+    public float m_hRight;
+    public float m_vRight;
 
     float m_fire;
 
