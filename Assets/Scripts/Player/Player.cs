@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(m_isFlying);
+
         if (m_isFlying)
         {
             this.transform.position = transform.position + -transform.up * _speed * Time.deltaTime;

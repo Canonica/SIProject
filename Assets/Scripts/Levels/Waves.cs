@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class Waves : MonoBehaviour {
 
     public bool _isSpawning;
+    public bool _hasStarted;
     public int _nbOfMonsters;
     public int _currentMonster;
     public int _timeBeforeSpawning;
@@ -11,6 +12,7 @@ public class Waves : MonoBehaviour {
     public List<GameObject> _spawnerList = new List<GameObject>();
     public GameObject _monsterCagePrefab;
     public GameObject _monsterPlayerPrefab;
+    public Levels _levels;
 
     // Use this for initialization
     void Start () {
@@ -20,6 +22,7 @@ public class Waves : MonoBehaviour {
         {
             _spawnerList.Add(parSpawner);
         }
+        _hasStarted = false;
     }
 	
 	// Update is called once per frame
@@ -30,6 +33,7 @@ public class Waves : MonoBehaviour {
     public void StartSpawning()
     {
         StartCoroutine(SpawnMob(_nbOfMonsters, _delayBetweenMonster));
+        _hasStarted = true;
     }
 
     IEnumerator SpawnMob(int parMaxMonster, float parDelayBetweenMonster)
