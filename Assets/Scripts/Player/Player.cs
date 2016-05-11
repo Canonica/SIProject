@@ -45,9 +45,16 @@ public class Player : MonoBehaviour {
         CheckUnder();
         InvokeRepeating("CheckUnder", 0.5f, 0.5f);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (m_isFlying)
+        {
+            this.transform.position = transform.position + -transform.up * _speed * Time.deltaTime;
+        }
+
         m_vLeft = XInput.instance.getYStickLeft(_playerId);
         m_hLeft = XInput.instance.getXStickLeft(_playerId);
 
