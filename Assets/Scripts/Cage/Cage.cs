@@ -38,7 +38,6 @@ public class Cage : MonoBehaviour {
         }
         else 
         {
-            parEnemy.GetComponent<NavMeshAgent>().Stop();
             Vector3 m_tempEnemyPosition = new Vector3(parEnemy.transform.position.x, 0, parEnemy.transform.position.z);
             Vector3 m_tempPlayerPosition = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;
@@ -48,7 +47,7 @@ public class Cage : MonoBehaviour {
             if(behind < 0)
             {
                 parEnemy.transform.DOMove(parEnemy.transform.position + m_bumpDirection * _bumpMultiplier * Mathf.Abs(behind)
-                    , 1f).SetEase(Ease.OutQuint).OnComplete(() => parEnemy.GetComponent<NavMeshAgent>().Resume());
+                    , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parEnemy.GetComponent<Monster>().Stun(1.0f)));
             }
         }
     }
