@@ -43,9 +43,14 @@ public class SpawnMonster : MonoBehaviour {
             int randomSpawner = Random.Range(0, _spawnerList.Count);
             if (currentMonster < parMaxMonster)
             {
-                GameObject tempMonster = Instantiate(_monsterCagePrefab, _spawnerList[randomSpawner].transform.position, Quaternion.identity) as GameObject;
-                _monsterList.Add(tempMonster);
                 currentMonster++;
+                GameObject tempMonster = Instantiate(_monsterCagePrefab, _spawnerList[randomSpawner].transform.position+new Vector3(0, 0.5f, 0), Quaternion.identity) as GameObject;
+                if(MonsterManager.GetInstance()._listOfMonster.Count > 0 && MonsterManager.GetInstance()._listOfMonster[0] != tempMonster)
+                {
+                    MonsterManager.GetInstance().AddMonster(tempMonster);
+                }
+                
+                
             }
             yield return new WaitForSeconds(parDelayBetweenMonster);
         }

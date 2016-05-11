@@ -14,7 +14,6 @@ public class Death : MonoBehaviour {
 
     void OnCollisionEnter(Collision parCollision)
     {
-
         if (parCollision.gameObject.tag == "Enemy")
         {
             transform.parent.GetComponent<Player>().OnCollisionEnter(parCollision);

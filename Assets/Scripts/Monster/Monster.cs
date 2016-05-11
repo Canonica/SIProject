@@ -8,6 +8,7 @@ abstract public class Monster : MonoBehaviour {
     public float _speed;
     public GameObject _target;
     public NavMeshAgent _agent;
+    public bool m_isFlying;
 
     public float _bumpForce;
     public float _counterBumpForce;
@@ -16,7 +17,7 @@ abstract public class Monster : MonoBehaviour {
 
     abstract public void FindTarget();
     abstract public void Attack(GameObject parTarget);
-
     abstract public void Death();
+    abstract public IEnumerator Stun(float parTime);
 	
 }
