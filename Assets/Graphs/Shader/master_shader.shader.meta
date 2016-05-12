@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: f66d304cfb403c742b33648203afdb45
-timeCreated: 1462886862
+timeCreated: 1463047206
 licenseType: Pro
 ShaderImporter:
   defaultTextures:
@@ -8,6 +8,7 @@ ShaderImporter:
   - _spec: {fileID: 2800000, guid: e789f2907d30b2e45b8ce5417bf78457, type: 3}
   - _normal: {fileID: 2800000, guid: 5b922708c05f21b4fb4053dab1061cab, type: 3}
   - _mask: {fileID: 2800000, guid: cfd21f659320147449c49946354df9e3, type: 3}
+  - _Cape_mask: {fileID: 2800000, guid: c3ca393e2aff595429632129c19ad55c, type: 3}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

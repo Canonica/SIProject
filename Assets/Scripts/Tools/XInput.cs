@@ -53,7 +53,7 @@ public class XInput : MonoBehaviour
     public void useVibe(int id, float time, float force1, float force2)
     {
         vibePlayer[id]++;
-        StartCoroutine(vibration((PlayerIndex)(id), time,  force1,  force2));
+        StartCoroutine(vibration((PlayerIndex)(id-1), time,  force1,  force2));
     }
     
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using DG.Tweening;
 public class BeforeFight : MonoBehaviour
 {
 
@@ -32,7 +32,9 @@ public class BeforeFight : MonoBehaviour
         {
             timer += Time.deltaTime * 500;
             yield return new WaitForSeconds(1f);
-            if(m_second == 3)
+            text.DOKill();
+            text.transform.DOShakePosition(0.5f, 5, 10);
+            if (m_second == 3)
             {
                 
                 text.CrossFadeAlpha(1f, 0f, false);
@@ -60,6 +62,7 @@ public class BeforeFight : MonoBehaviour
         if (text.text == "DEFEND YOUR PRINCE")
         {
             text.CrossFadeAlpha(1f, 0f, false);
+            yield return new WaitForSeconds(0.5f);
             text.CrossFadeAlpha(0f, 1f, false);
         }
         ready = true;
