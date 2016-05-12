@@ -17,8 +17,11 @@ public class MonsterCage : Monster {
     {
         if(!this._isStuned)
         {
-            _agent.ResetPath();
-            _agent.SetDestination(_target.transform.position);
+            if (_target != null)
+            {
+                _agent.ResetPath();
+                _agent.SetDestination(_target.transform.position);
+            }
         }
        
     }
@@ -111,7 +114,6 @@ public class MonsterCage : Monster {
         {
             if ((m_hit.collider.tag == "Obstacle" || m_hit.collider.name == "Cage") && m_hit.distance <= gameObject.GetComponent<CapsuleCollider>().radius + 0.1f)
             {
-                Debug.Log("test");
                 Vector3 _tempPosition = transform.position;
                 transform.DOKill(true);
                 transform.DOMove(_tempPosition, 0.0f).OnComplete(() => this._isBumped = false);

@@ -22,6 +22,14 @@ public class DeathZone : MonoBehaviour {
         {
             Destroy(other.gameObject);
         }
+        else
+        {
+            if(other.gameObject.name == "Cage")
+            {
+                GameManager.GetInstance().EndGame(false);
+            }
+            Destroy(other.gameObject);
+        }
         
     }
 }
