@@ -58,7 +58,7 @@ public class ShieldBounce : MonoBehaviour {
             Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;
             m_bumpDirection.Normalize();
 
-            if(parCollider.GetComponent<MonsterCage>())
+            /*if(parCollider.GetComponent<MonsterCage>())
             {
                 StartCoroutine(parCollider.GetComponent<MonsterCage>().Stun(2.0f));
 
@@ -73,8 +73,12 @@ public class ShieldBounce : MonoBehaviour {
                 parCollider.GetComponent<MonsterPlayer>()._currentBumpDirection = -m_bumpDirection;
                 parCollider.GetComponent<MonsterPlayer>()._isBumped = true;
                 parCollider.transform.DOMove(parCollider.transform.position - m_bumpDirection * m_bumpForce, 0.5f).OnComplete(() => parCollider.GetComponent<MonsterPlayer>()._isBumped = false);
-            }
-            
+            }*/
+            StartCoroutine(parCollider.GetComponent<Monster>().Stun(2.0f));
+
+            parCollider.GetComponent<Monster>()._currentBumpDirection = -m_bumpDirection;
+            parCollider.GetComponent<Monster>()._isBumped = true;
+            parCollider.transform.DOMove(parCollider.transform.position - m_bumpDirection * m_bumpForce, 0.5f).OnComplete(() => parCollider.GetComponent<Monster>()._isBumped = false);
 
             m_listOfMonstersHit.Add(parCollider.gameObject);
             m_tempListOfMonsters.Remove(parCollider.gameObject);
