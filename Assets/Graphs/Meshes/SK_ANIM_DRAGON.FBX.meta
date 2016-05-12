@@ -1,0 +1,794 @@
+fileFormatVersion: 2
+guid: da1176da2fa7bb049999af8f352b5eb4
+timeCreated: 1463058305
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: B_eyesD
+    100002: B_eyesG
+    100004: B_HEAD
+    100006: B_HEAD_middle
+    100008: B_jaw_dwn_01
+    100010: B_jaw_dwn_02
+    100012: B_jaw_dwn_end
+    100014: B_jaws_up_end
+    100016: B_pelvis
+    100018: B_tail_01
+    100020: B_tail_02
+    100022: B_tail_03
+    100024: B_tail_04
+    100026: B_tail_05
+    100028: B_tail_06
+    100030: B_tail_07
+    100032: B_WINGS_D_01
+    100034: B_WINGS_D_02
+    100036: B_WINGS_D_03
+    100038: B_WINGS_D_04
+    100040: B_WINGS_D_05
+    100042: B_WINGS_G_01
+    100044: B_WINGS_G_02
+    100046: B_WINGS_G_03
+    100048: B_WINGS_G_04
+    100050: B_WINGS_G_05
+    100052: CTRL_MASTER
+    100054: Dragon
+    100056: eyes
+    100058: Line001
+    100060: Point001
+    100062: //RootNode
+    400000: B_eyesD
+    400002: B_eyesG
+    400004: B_HEAD
+    400006: B_HEAD_middle
+    400008: B_jaw_dwn_01
+    400010: B_jaw_dwn_02
+    400012: B_jaw_dwn_end
+    400014: B_jaws_up_end
+    400016: B_pelvis
+    400018: B_tail_01
+    400020: B_tail_02
+    400022: B_tail_03
+    400024: B_tail_04
+    400026: B_tail_05
+    400028: B_tail_06
+    400030: B_tail_07
+    400032: B_WINGS_D_01
+    400034: B_WINGS_D_02
+    400036: B_WINGS_D_03
+    400038: B_WINGS_D_04
+    400040: B_WINGS_D_05
+    400042: B_WINGS_G_01
+    400044: B_WINGS_G_02
+    400046: B_WINGS_G_03
+    400048: B_WINGS_G_04
+    400050: B_WINGS_G_05
+    400052: CTRL_MASTER
+    400054: Dragon
+    400056: eyes
+    400058: Line001
+    400060: Point001
+    400062: //RootNode
+    2300000: Line001
+    3300000: Line001
+    4300000: Dragon
+    4300002: eyes
+    4300004: Line001
+    7400000: A_Dragon@IdleFlyStatic
+    7400002: A_Dragon@FlyRun
+    7400004: A_Dragon@Bumped
+    7400006: A_Dragon@Falls
+    7400008: A_Dragon@AttackFly
+    7400010: A_Dragon@Attack
+    7400012: A_Dragon@PauseBumped
+    9500000: //RootNode
+    13700000: Dragon
+    13700002: eyes
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: A_Dragon@IdleFlyStatic
+      takeName: Take 001
+      firstFrame: 40
+      lastFrame: 70
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: B_tail_01
+        weight: 1
+      - path: B_tail_01/B_tail_02
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06/B_tail_07
+        weight: 1
+      - path: CTRL_MASTER
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesG
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD/B_jaws_up_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02/B_jaw_dwn_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04/B_WINGS_D_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04/B_WINGS_G_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/Point001
+        weight: 1
+      - path: Dragon
+        weight: 1
+      - path: eyes
+        weight: 1
+      - path: Line001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_Dragon@FlyRun
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: B_tail_01
+        weight: 1
+      - path: B_tail_01/B_tail_02
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06/B_tail_07
+        weight: 1
+      - path: CTRL_MASTER
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesG
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD/B_jaws_up_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02/B_jaw_dwn_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04/B_WINGS_D_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04/B_WINGS_G_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/Point001
+        weight: 1
+      - path: Dragon
+        weight: 1
+      - path: eyes
+        weight: 1
+      - path: Line001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_Dragon@Bumped
+      takeName: Take 001
+      firstFrame: 75
+      lastFrame: 102
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: B_tail_01
+        weight: 1
+      - path: B_tail_01/B_tail_02
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06/B_tail_07
+        weight: 1
+      - path: CTRL_MASTER
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesG
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD/B_jaws_up_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02/B_jaw_dwn_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04/B_WINGS_D_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04/B_WINGS_G_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/Point001
+        weight: 1
+      - path: Dragon
+        weight: 1
+      - path: eyes
+        weight: 1
+      - path: Line001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_Dragon@Falls
+      takeName: Take 001
+      firstFrame: 115
+      lastFrame: 158
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: B_tail_01
+        weight: 1
+      - path: B_tail_01/B_tail_02
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06/B_tail_07
+        weight: 1
+      - path: CTRL_MASTER
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesG
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD/B_jaws_up_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02/B_jaw_dwn_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04/B_WINGS_D_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04/B_WINGS_G_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/Point001
+        weight: 1
+      - path: Dragon
+        weight: 1
+      - path: eyes
+        weight: 1
+      - path: Line001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_Dragon@AttackFly
+      takeName: Take 001
+      firstFrame: 170
+      lastFrame: 200
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: B_tail_01
+        weight: 1
+      - path: B_tail_01/B_tail_02
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06/B_tail_07
+        weight: 1
+      - path: CTRL_MASTER
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesG
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD/B_jaws_up_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02/B_jaw_dwn_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04/B_WINGS_D_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04/B_WINGS_G_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/Point001
+        weight: 1
+      - path: Dragon
+        weight: 1
+      - path: eyes
+        weight: 1
+      - path: Line001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_Dragon@Attack
+      takeName: Take 001
+      firstFrame: 183
+      lastFrame: 197
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: B_tail_01
+        weight: 1
+      - path: B_tail_01/B_tail_02
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06/B_tail_07
+        weight: 1
+      - path: CTRL_MASTER
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesG
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD/B_jaws_up_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02/B_jaw_dwn_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04/B_WINGS_D_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04/B_WINGS_G_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/Point001
+        weight: 1
+      - path: Dragon
+        weight: 1
+      - path: eyes
+        weight: 1
+      - path: Line001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_Dragon@PauseBumped
+      takeName: Take 001
+      firstFrame: 102
+      lastFrame: 113
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: B_tail_01
+        weight: 1
+      - path: B_tail_01/B_tail_02
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06
+        weight: 1
+      - path: B_tail_01/B_tail_02/B_tail_03/B_tail_04/B_tail_05/B_tail_06/B_tail_07
+        weight: 1
+      - path: CTRL_MASTER
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_eyesG
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_HEAD_middle/B_HEAD/B_jaws_up_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_jaw_dwn_01/B_jaw_dwn_02/B_jaw_dwn_end
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_D_01/B_WINGS_D_02/B_WINGS_D_03/B_WINGS_D_04/B_WINGS_D_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/B_WINGS_G_01/B_WINGS_G_02/B_WINGS_G_03/B_WINGS_G_04/B_WINGS_G_05
+        weight: 1
+      - path: CTRL_MASTER/B_pelvis/Point001
+        weight: 1
+      - path: Dragon
+        weight: 1
+      - path: eyes
+        weight: 1
+      - path: Line001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
