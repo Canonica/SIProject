@@ -45,7 +45,7 @@ public class PlayerAnimationManager : MonoBehaviour {
         
 
 
-        //Shield States
+        /*//Shield States
         if(m_Player.m_hasShield)
         {
             if (!m_Player.m_isShielding)
@@ -86,6 +86,17 @@ public class PlayerAnimationManager : MonoBehaviour {
         m_currentlyThrowing = !m_Player.m_hasShield;
         m_currentlyBumped = m_Player._isBumped;
         m_currentlyStunned = m_Player._isStuned;
+        */
+    }
+
+    public void ShieldUp()
+    {
+        m_Animator.SetTrigger("ShieldUp");
+    }
+
+    public void ShieldDown()
+    {
+        m_Animator.SetTrigger("ShieldDown");
 
     }
 
@@ -99,5 +110,15 @@ public class PlayerAnimationManager : MonoBehaviour {
     public void StartBump()
     {
         m_Animator.SetTrigger("StartBumped");
+    }
+
+    public void EndBump()
+    {
+        m_Animator.SetTrigger("EndBumped");
+    }
+
+    public void StartThrow()
+    {
+        m_Animator.SetTrigger("StartThrowing");
     }
 }
