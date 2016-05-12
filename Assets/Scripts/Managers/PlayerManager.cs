@@ -6,6 +6,9 @@ public class PlayerManager : MonoBehaviour {
 
     public List<Player> _playerList = new List<Player>();
     public int m_nbOfPlayerAlive;
+    public int _nbOfPlayers;
+    public GameObject[] _spawnerPlayers;
+    public GameObject[] _playersPrefab;
 
     public static PlayerManager GetInstance()
     {
@@ -17,6 +20,12 @@ public class PlayerManager : MonoBehaviour {
     {
         _instance = this;
         DontDestroyOnLoad(gameObject);
+        _playersPrefab = new GameObject[4];
+        _spawnerPlayers = new GameObject[4];
+        for (int i=1; i<5; i++)
+        {
+            _playersPrefab[i - 1] = Resources.Load("Prefabs/GraphedPlayer" + i) as GameObject;
+        }
     }
 
     void Start()
@@ -33,12 +42,22 @@ public class PlayerManager : MonoBehaviour {
     {
         if(level == 1)
         {
-            /*GameObject[] tempPlayers = GameObject.FindGameObjectsWithTag("Player");
+            GameObject[] tempSpawners = GameObject.FindGameObjectsWithTag("PlayerSpawner");
+            for (int i = 0; i< tempSpawners.Length; i++)
+            {
+                _spawnerPlayers[i] = tempSpawners[i];
+            }
+
+            for(int i = 0; i < _nbOfPlayers; i++)
+            {
+                Instantiate(_playersPrefab[i], _spawnerPlayers[i].transform.position, Quaternion.identity);
+            }
+            GameObject[] tempPlayers = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject parPlayers in tempPlayers)
             {
                 _playerList.Add(parPlayers.GetComponent<Player>());
             }
-            _playerList.Reverse();*/
+            _playerList.Reverse();
         }
     }
 

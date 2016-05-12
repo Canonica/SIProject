@@ -2,13 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using XInputDotNetPure;
 //using UnityEngine.SceneManagement;
 
 public class MenuHandler : MonoBehaviour {
 
 
 
-	[HideInInspector]
 	public int indice;
 	bool dirUp, dirDown, dirLeft, dirRight;
 	bool stillUp, stillDown, stillLeft, stillRight;
@@ -24,7 +24,8 @@ public class MenuHandler : MonoBehaviour {
 	
 
 	void Update(){
-            if (Input.GetAxis("L_YAxis_0") > 0 || Input.GetKeyDown("down"))
+
+            if (XInput.instance.getYStickLeft(1) < 0 || Input.GetKeyDown("down"))
             {
                 //vers le bas
                 if (dirDown == false)
@@ -39,7 +40,7 @@ public class MenuHandler : MonoBehaviour {
 
                 }
             }
-            else if (Input.GetAxis("L_YAxis_0") < 0 || Input.GetKeyDown("up"))
+            else if (XInput.instance.getYStickLeft(1) > 0 || Input.GetKeyDown("up"))
             {
                 //vers le haut
                 if (dirUp == false)
@@ -115,8 +116,8 @@ public class MenuHandler : MonoBehaviour {
     }
 	
 	void ChangeIndice(){
-        speakerMenuMove = SoundManager.Instance.playSound(audioclipMenuMove, 100, true);
-        speakerMenuMove.GetComponent<AudioSource>().loop = false;
+        //speakerMenuMove = SoundManager.Instance.playSound(audioclipMenuMove, 100, true);
+        //speakerMenuMove.GetComponent<AudioSource>().loop = false;
         if (indice == 0) {
            
             if (stillDown == true)

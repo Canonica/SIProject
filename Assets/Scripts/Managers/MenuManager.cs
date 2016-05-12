@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using XInputDotNetPure;
 public class MenuManager : MonoBehaviour
 {
 
@@ -10,9 +11,18 @@ public class MenuManager : MonoBehaviour
 
     public GameObject MainMenuCanvas;
     public GameObject CreditsCanvas;
+    public GameObject TutoCanvas;
+    public GameObject LobbyCanvas;
 
     public CanvasGroup MainMenuCanvasGroup;
     public CanvasGroup CreditsCanvasGroup;
+    public CanvasGroup TutoCanvasGroup;
+    public CanvasGroup LobbyCanvasGroup;
+
+    bool isInCredit;
+    bool isIntuto;
+    bool buttonPressedB;
+    bool isInLobby;
 
     void Awake()
     {
@@ -27,8 +37,13 @@ public class MenuManager : MonoBehaviour
         {
             MainMenuCanvas = GameObject.Find("CanvasMainMenu");
             CreditsCanvas = GameObject.Find("CanvasCredits");
+            TutoCanvas = GameObject.Find("CanvasTuto");
+            LobbyCanvas = GameObject.Find("CanvasLobby");
+
             MainMenuCanvasGroup = MainMenuCanvas.GetComponent<CanvasGroup>();
             CreditsCanvasGroup = CreditsCanvas.GetComponent<CanvasGroup>();
+            TutoCanvasGroup = TutoCanvas.GetComponent<CanvasGroup>();
+            LobbyCanvasGroup = LobbyCanvas.GetComponent<CanvasGroup>();
         }
     }
     // Use this for initialization
@@ -36,11 +51,59 @@ public class MenuManager : MonoBehaviour
     {
         MainMenuCanvas = GameObject.Find("CanvasMainMenu");
         CreditsCanvas = GameObject.Find("CanvasCredits");
+        TutoCanvas = GameObject.Find("CanvasTuto");
+        LobbyCanvas = GameObject.Find("CanvasLobby");
+
         MainMenuCanvasGroup = MainMenuCanvas.GetComponent<CanvasGroup>();
         CreditsCanvasGroup = CreditsCanvas.GetComponent<CanvasGroup>();
+        TutoCanvasGroup = TutoCanvas.GetComponent<CanvasGroup>();
+        LobbyCanvasGroup = LobbyCanvas.GetComponent<CanvasGroup>();
+
         CreditsCanvasGroup.DOFade(0f, 0f);
         CreditsCanvas.SetActive(false);
+        TutoCanvasGroup.DOFade(0f, 0f);
+        TutoCanvas.SetActive(false);
+        LobbyCanvasGroup.DOFade(0f, 0f);
+        LobbyCanvas.SetActive(false);
+
+        buttonPressedB = false;
+        isInLobby = false;
+        isInCredit = false;
+        isIntuto = false;
         //CreditsCanvas.GetComponent<MenuHandler>().enabled = false;
+    }
+
+    void Update()
+    {
+        for(int i = 1; i < 5; i++)
+        {
+            if (XInput.instance.getButton(i, 'B') == ButtonState.Pressed && !buttonPressedB)
+            {
+                buttonPressedB = true;
+
+                if (isInCredit)
+                {
+                    isInCredit = false;
+                    Main_Menu_From_Credit();
+                }
+                else if (isIntuto)
+                {
+                    isIntuto = false;
+                    MainMenuFromTuto();
+                }
+                else if (isInLobby)
+                {
+                    isInLobby = false;
+                    MainMenuFromLobby();
+                }
+            }
+            else if (XInput.instance.getButton(i, 'B') == ButtonState.Released && buttonPressedB)
+            {
+                buttonPressedB = false;
+            }
+        }
+        
+        
     }
 
     public void Quit()
@@ -62,6 +125,13 @@ public class MenuManager : MonoBehaviour
         //CreditsCanvas.GetComponent<MenuHandler>().enabled = false;
     }
 
+    public void MainMenuFromLobby()
+    {
+        HideAll();
+        MainMenuCanvas.SetActive(true);
+        ChangeCanvas(LobbyCanvasGroup, MainMenuCanvasGroup);
+    }
+
     public void Main_Menu_From_Credit()
     {
         HideAll();
@@ -72,12 +142,40 @@ public class MenuManager : MonoBehaviour
         
     }
 
+    public void MainMenuFromTuto()
+    {
+        HideAll();
+        MainMenuCanvas.SetActive(true);
+        //CreditsCanvas.GetComponent<MenuHandler>().enabled = false;
+        //MainMenuCanvas.GetComponent<MenuHandler>().enabled = true;
+        ChangeCanvas(TutoCanvasGroup, MainMenuCanvasGroup);
+
+    }
+
     public void ShowCredits()
     {
         HideAll();
         //CreditsCanvas.GetComponent<MenuHandler>().enabled = true;
         ChangeCanvas(MainMenuCanvasGroup, CreditsCanvasGroup);
         CreditsCanvas.SetActive(true);
+        isInCredit = true;
+    }
+
+    public void ShowTuto()
+    {
+        HideAll();
+        //CreditsCanvas.GetComponent<MenuHandler>().enabled = true;
+        ChangeCanvas(MainMenuCanvasGroup, TutoCanvasGroup);
+        TutoCanvas.SetActive(true);
+        isIntuto = true;
+    }
+
+    public void ShowLobby()
+    {
+        HideAll();
+        ChangeCanvas(MainMenuCanvasGroup, LobbyCanvasGroup);
+        LobbyCanvas.SetActive(true);
+        isInLobby = true;
     }
 
     private void ChangeCanvas(CanvasGroup canvasOut, CanvasGroup canvasIn)
