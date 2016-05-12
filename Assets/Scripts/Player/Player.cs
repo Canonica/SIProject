@@ -20,11 +20,12 @@ public class Player : MonoBehaviour {
     public float m_vRight;
 
     float m_fire;
-
     Rigidbody m_rigidbody;
     Vector3 _velocity;
     CharacterController characterController;
 
+
+    float _initialFresnel;
     public bool m_needHelp;
     public bool m_hasShield;
     public bool m_isShielding;
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour {
     float delayToLaunch;
     // Use this for initialization
     void Start () {
+        
         m_startPositionY = transform.position.y;
         m_rigidbody = this.GetComponent<Rigidbody>();
         characterController = GetComponent<CharacterController>();
@@ -49,88 +51,90 @@ public class Player : MonoBehaviour {
         _meshTriggerShield.SetActive(false);
         CheckUnder();
         InvokeRepeating("CheckUnder", 0.5f, 0.5f);
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!m_isFlying)
+        if (GameManager.GetInstance().gamestate == GameManager.GameState.playing)
         {
-            transform.position = new Vector3(transform.position.x, m_startPositionY, transform.position.z);
-        }
-        
-
-        if (_isBumped)
-        {
-            m_isShielding = false;
-            CheckCollision(_currentBumpDirection);
-        }
-
-        if (m_isFlying && !_isBumped)
-        {
-            this.transform.position = transform.position + -transform.up * _speed * Time.deltaTime;
-        }
-
-        m_vLeft = XInput.instance.getYStickLeft(_playerId);
-        m_hLeft = XInput.instance.getXStickLeft(_playerId);
-
-        m_vRight = XInput.instance.getYStickRight(_playerId);
-        m_hRight = XInput.instance.getXStickRight(_playerId);
-
-        m_fire = XInput.instance.getTrigger(_playerId);
-
-        Vector3 _movHorizontal = transform.right * m_hLeft;
-        Vector3 _movVertical = transform.forward * m_vLeft;
-        float angleTRight = Mathf.Atan2(m_hRight, m_vRight);
-        float angleTLeft = Mathf.Atan2(m_hLeft, m_vLeft);
-
-        _velocity = (_movHorizontal + _movVertical).normalized;
-        characterController.Move(_velocity * _speed * Time.deltaTime);
-        //transform.position = transform.position + _velocity * _speed *  Time.deltaTime;
-        _meshShield.SetActive(m_isShielding && m_hasShield);
-       
-        if(m_fire > 0.2f && m_hasShield)
-        {
-            ThrowShield();
-        }
-
-        if (m_vLeft !=0 || m_hLeft != 0)
-        {
-            m_isMoving = true;
-        }
-        else
-        {
-            m_isMoving = false;
-        }
-
-        if ((m_hRight != 0 || m_vRight != 0) && m_hasShield)
-        {
-            if(!m_isShielding)
+            if (!m_isFlying)
             {
-                StartCoroutine(ActivateBump(0.1f));
+                transform.position = new Vector3(transform.position.x, m_startPositionY, transform.position.z);
             }
-            m_isShielding = true;
-            
-        }
-        else
-        {
-            m_isShielding = false;
-        }
+            if (_isBumped)
+            {
+                m_isShielding = false;
+                CheckCollision(_currentBumpDirection);
+            }
 
-        if (m_isShielding)
-        {
-            playerRotate(angleTRight);
-        }
-        else if(m_isMoving)
-        {
-            playerRotate(angleTLeft);
-        }
+            if (m_isFlying && !_isBumped)
+            {
+                this.transform.position = transform.position + -transform.up * _speed * Time.deltaTime;
+            }
 
-        if (m_isFlying)
-        {
-            this.transform.position = transform.position + -transform.up * _speed * Time.deltaTime;
-        }
+            m_vLeft = XInput.instance.getYStickLeft(_playerId);
+            m_hLeft = XInput.instance.getXStickLeft(_playerId);
 
+            m_vRight = XInput.instance.getYStickRight(_playerId);
+            m_hRight = XInput.instance.getXStickRight(_playerId);
+
+            m_fire = XInput.instance.getTrigger(_playerId);
+
+            Vector3 _movHorizontal = transform.right * m_hLeft;
+            Vector3 _movVertical = transform.forward * m_vLeft;
+            float angleTRight = Mathf.Atan2(m_hRight, m_vRight);
+            float angleTLeft = Mathf.Atan2(m_hLeft, m_vLeft);
+
+            _velocity = (_movHorizontal + _movVertical).normalized;
+            characterController.Move(_velocity * _speed * Time.deltaTime);
+            //transform.position = transform.position + _velocity * _speed *  Time.deltaTime;
+            _meshShield.SetActive(m_isShielding && m_hasShield);
+
+            if (m_fire > 0.2f && m_hasShield)
+            {
+                ThrowShield();
+            }
+
+            if (m_vLeft != 0 || m_hLeft != 0)
+            {
+                m_isMoving = true;
+            }
+            else
+            {
+                m_isMoving = false;
+            }
+
+            if ((m_hRight != 0 || m_vRight != 0) && m_hasShield)
+            {
+                if (!m_isShielding)
+                {
+                    StartCoroutine(ActivateBump(0.1f));
+                }
+                m_isShielding = true;
+
+            }
+            else
+            {
+                m_isShielding = false;
+            }
+
+            if (m_isShielding)
+            {
+                playerRotate(angleTRight);
+            }
+            else if (m_isMoving)
+            {
+                playerRotate(angleTLeft);
+            }
+
+            if (m_isFlying)
+            {
+                this.transform.position = transform.position + -transform.up * _speed * Time.deltaTime;
+            }
+        }
     }
 
     void CheckCollision(Vector3 parDirection)
@@ -235,6 +239,8 @@ public class Player : MonoBehaviour {
             }
         }
     }
+
+
 
 
 }

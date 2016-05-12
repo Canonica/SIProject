@@ -31,5 +31,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void EndGame(bool won)
+    {
+
+    }
+
 
 }
