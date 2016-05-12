@@ -6,8 +6,8 @@ public class MainMusic : MonoBehaviour {
     private GameObject speakerMainMusic;
     // Use this for initialization
     void Start () {
-        speakerMainMusic = SoundInstancier.Instance.playSound(audioclipMusic, 100);
-        speakerMainMusic.GetComponent<AudioSource>().loop = true;
+        //speakerMainMusic = SoundInstancier.Instance.playSound(audioclipMusic, 100);
+        //speakerMainMusic.GetComponent<AudioSource>().loop = true;
     }
 	
 	// Update is called once per frame
