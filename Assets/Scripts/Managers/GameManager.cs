@@ -21,19 +21,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if (_instance.gamestate == GameState.pause)
-        {
-            //panelPause.SetActive(true);
-        }
-        else
-        {
-            //panelPause.SetActive(false);
-        }
+        
     }
 
     public void EndGame(bool won)
     {
-
+        if (!won)
+        {
+            Debug.Log("loose");
+        }
+        else
+        {
+            Debug.Log("win");
+        }
     }
 
 

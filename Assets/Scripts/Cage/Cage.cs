@@ -7,17 +7,25 @@ public class Cage : MonoBehaviour {
     public bool _isBumped;
     public float _bumpMultiplier = 5f;
     public Vector3 currentBumpDirection;
-    
+    public bool _isFlying;
+
     // Use this for initialization
     void Start () {
-	
-	}
+        InvokeRepeating("CheckUnder", 0.5f, 0.01f);
+        _isFlying = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
         if (_isBumped)
         {
+            
             CheckCollision(currentBumpDirection);
+        }
+
+        if (_isFlying && !_isBumped)
+        {
+            this.transform.position = transform.position + -transform.up * 10 * Time.deltaTime;
         }
 
     }
@@ -100,5 +108,21 @@ public class Cage : MonoBehaviour {
     void NotBumped()
     {
         _isBumped = false;
+    }
+
+    void CheckUnder()
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, this.gameObject.GetComponent<CapsuleCollider>().radius, -transform.up, out hit, 10))
+        {
+            if (hit.transform.tag == "Ground")
+            {
+                _isFlying = false;
+            }
+        }
+        else
+        {
+            _isFlying = true;
+        }
     }
 }

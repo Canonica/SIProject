@@ -114,7 +114,6 @@ public class Player : MonoBehaviour {
                     StartCoroutine(ActivateBump(0.1f));
                 }
                 m_isShielding = true;
-
             }
             else
             {
