@@ -19,16 +19,26 @@ public class PlayerManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    void Start()
+    {
+        GameObject[] tempPlayers = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject parPlayers in tempPlayers)
+        {
+            _playerList.Add(parPlayers.GetComponent<Player>());
+        }
+        _playerList.Reverse();
+    }
+
     void OnLevelWasLoaded(int level)
     {
-        if(level == 2)
+        if(level == 1)
         {
-            GameObject[] tempPlayers = GameObject.FindGameObjectsWithTag("Player");
+            /*GameObject[] tempPlayers = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject parPlayers in tempPlayers)
             {
                 _playerList.Add(parPlayers.GetComponent<Player>());
             }
-            _playerList.Reverse();
+            _playerList.Reverse();*/
         }
     }
 

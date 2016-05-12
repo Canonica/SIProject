@@ -46,8 +46,9 @@ public class ShieldBump : MonoBehaviour {
         if(parCollider.gameObject.tag == "Enemy")
         {
             Bump(parCollider.gameObject);
-        }else if(parCollider.gameObject.tag == "Player")
+        }else if(parCollider.gameObject.tag == "Player" && parCollider.gameObject != this.gameObject.transform.parent.parent.gameObject)
         {
+            Debug.Log(parCollider.gameObject);
             BumpCageOrPlayer(parCollider.gameObject);
         }else if(parCollider.gameObject.tag == "Cage")
         {

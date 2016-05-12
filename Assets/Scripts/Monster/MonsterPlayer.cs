@@ -7,7 +7,7 @@ public class MonsterPlayer : Monster {
 
     void Start()
     {
-
+        this._isStuned = false;
         _agent = this.GetComponent<NavMeshAgent>();
         int randPlayer = Random.Range(1, PlayerManager.GetInstance()._playerList.Count+1);
         _target = GameObject.Find("Player" + randPlayer);
@@ -46,24 +46,36 @@ public class MonsterPlayer : Monster {
 
     public override IEnumerator Stun(float parTime)
     {
-        if(_agent.enabled)
-        {
-            _agent.Stop();
-        }
-        this._isBumped = false;
-        yield return new WaitForSeconds(parTime);
-
+        this._isStuned = true;
         if (_agent.enabled)
         {
-            _agent.ResetPath();
+            this._agent.Stop();
+            Debug.Log("stop");
+        }
+        Invoke("Reset", parTime);
+        
+        Debug.Log("time" + parTime);
+        yield return null;
+        
+    }
+
+    void Reset()
+    {
+        Debug.Log("avant");
+        if (_agent.enabled)
+        {
+            Debug.Log("time");
+            this._isStuned = false;
+            //this._isBumped = false;
+            this._agent.ResetPath();
             FindTarget();
         }
-        
+
     }
 
     public override void FindTarget()
     {
-        if(_target != null)
+        if(_target != null && !this._isStuned)
         {
             _agent.ResetPath();
             _agent.SetDestination(_target.transform.position);

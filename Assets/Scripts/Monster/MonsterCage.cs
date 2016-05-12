@@ -15,8 +15,12 @@ public class MonsterCage : Monster {
 
     public override void FindTarget()
     {
-        _agent.ResetPath();
-        _agent.SetDestination(_target.transform.position);
+        if(!this._isStuned)
+        {
+            _agent.ResetPath();
+            _agent.SetDestination(_target.transform.position);
+        }
+       
     }
 
     public override void Attack(GameObject parCage)
@@ -29,14 +33,17 @@ public class MonsterCage : Monster {
 
     public override IEnumerator Stun(float parTime)
     {
+        this._isStuned = true;
         if (_agent.enabled)
         {
             _agent.Stop();
-            Invoke("Reset", parTime);
+            Debug.Log("stop");
         }
-        this._isBumped = false;
-        yield return new WaitForSeconds(parTime);
+        Invoke("Reset", parTime);
         
+        Debug.Log("time" +parTime);
+        yield return null;
+
     }
 
     void OntTriggerEnter(Collider other)
@@ -71,8 +78,12 @@ public class MonsterCage : Monster {
 
     void Reset()
     {
+        Debug.Log("avant");
         if (_agent.enabled)
         {
+            Debug.Log("time");
+            this._isStuned = false;
+            //this._isBumped = false;
             _agent.ResetPath();
             FindTarget();
         }
