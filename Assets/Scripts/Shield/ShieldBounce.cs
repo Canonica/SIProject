@@ -45,13 +45,14 @@ public class ShieldBounce : MonoBehaviour {
     {
         if(parCollider.gameObject.tag =="Enemy")
         {
+            m_hit = true;
+            m_bounceCount++;
             Vector3 _tempPosition = transform.position;
             transform.DOKill(true);
             
-            transform.DOMove(_tempPosition, 0.0f);
+            transform.DOMove(_tempPosition, 0.0f).OnComplete(() => CheckHit());
 
-            m_hit = true;
-            m_bounceCount++;
+            
 
             Vector3 m_tempEnemyPosition = new Vector3(parCollider.transform.position.x, 0, parCollider.transform.position.z) ;
             Vector3 m_tempPlayerPosition = new Vector3(transform.position.x,0, transform.position.z);
@@ -83,6 +84,7 @@ public class ShieldBounce : MonoBehaviour {
             m_listOfMonstersHit.Add(parCollider.gameObject);
             m_tempListOfMonsters.Remove(parCollider.gameObject);
 
+            //
             if(!m_back && m_bounceCount < m_maxBounceCount && MonsterManager.GetInstance()._listOfMonster.Count >0)
             {
 
@@ -90,6 +92,7 @@ public class ShieldBounce : MonoBehaviour {
                 FindOtherEnemy();
             }else
             {
+                m_hit = false;
                 m_targeting = false;
                 m_back = true;
             }
@@ -137,7 +140,6 @@ public class ShieldBounce : MonoBehaviour {
 
     void Move()
     {
-        
         if(m_targeting)
         {
             if(m_target != null && !m_target.GetComponent<Monster>().m_isFlying)
@@ -145,6 +147,7 @@ public class ShieldBounce : MonoBehaviour {
                 transform.position = Vector3.MoveTowards(transform.position, m_target.transform.position, m_speed * Time.deltaTime);
             }else
             {
+                Debug.Log(m_targeting);
                 m_back = true;
                 m_targeting = false;
             }

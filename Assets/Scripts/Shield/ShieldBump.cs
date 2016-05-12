@@ -7,6 +7,7 @@ public class ShieldBump : MonoBehaviour {
     public float _bumpForce = 10f;
     public float _bumpHeight;
     public float _bumpTime;
+    public float _timeStun = 2.0f;
 
     public void Bump(GameObject parEnemy)
     {
@@ -16,8 +17,13 @@ public class ShieldBump : MonoBehaviour {
 
         /*parEnemy.GetComponent<Monster>()._currentBumpDirection = -m_bumpDirection;
         parEnemy.GetComponent<Monster>()._isBumped = true;*/
-        parEnemy.transform.DOJump(parEnemy.transform.position + (transform.forward* _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad)).OnComplete(() => StartCoroutine(parEnemy.GetComponent<Monster>().Stun(_bumpTime)));
+        parEnemy.transform.DOJump(parEnemy.transform.position + (transform.forward * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad));
+        StartCoroutine(parEnemy.GetComponent<Monster>().Stun(_timeStun));
+    }
 
+    void LaunchStun(GameObject parEnemy)
+    {
+        
     }
 
     public void BumpCageOrPlayer(GameObject parPlayer)

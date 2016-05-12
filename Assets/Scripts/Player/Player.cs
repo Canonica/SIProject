@@ -30,14 +30,16 @@ public class Player : MonoBehaviour {
     public bool m_isShielding;
     bool m_isMoving;
     public bool _isBumped;
-    bool m_isFlying;
+    public bool m_isFlying;
 
     public Vector3 _currentBumpDirection;
     public float _bumpMultiplier;
+    float m_startPositionY;
 
     float delayToLaunch;
     // Use this for initialization
     void Start () {
+        m_startPositionY = transform.position.y;
         m_rigidbody = this.GetComponent<Rigidbody>();
         characterController = GetComponent<CharacterController>();
         m_isMoving = false;
@@ -52,12 +54,19 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if(!m_isFlying)
+        {
+            transform.position = new Vector3(transform.position.x, m_startPositionY, transform.position.z);
+        }
+        
+
         if (_isBumped)
         {
+            m_isShielding = false;
             CheckCollision(_currentBumpDirection);
         }
 
-        if (m_isFlying)
+        if (m_isFlying && !_isBumped)
         {
             this.transform.position = transform.position + -transform.up * _speed * Time.deltaTime;
         }
@@ -94,7 +103,7 @@ public class Player : MonoBehaviour {
             m_isMoving = false;
         }
 
-        if (m_hRight != 0 || m_vRight != 0 && m_hasShield)
+        if ((m_hRight != 0 || m_vRight != 0) && m_hasShield)
         {
             if(!m_isShielding)
             {
@@ -129,7 +138,7 @@ public class Player : MonoBehaviour {
         RaycastHit m_hit;
         if (Physics.SphereCast(transform.position, gameObject.transform.GetChild(0).GetComponent<CapsuleCollider>().radius, parDirection, out m_hit, Mathf.Infinity))
         {
-            if ((m_hit.collider.tag == "Obstacle" || m_hit.collider.name == "Cage") && m_hit.distance <= gameObject.transform.GetChild(0).GetComponent<CapsuleCollider>().radius + 0.1f)
+            if ((m_hit.collider.tag == "Obstacle" || m_hit.collider.name == "Cage") && m_hit.distance <= gameObject.transform.GetChild(0).GetComponent<CapsuleCollider>().radius*2 + 0.1f)
             {
                 Vector3 _tempPosition = transform.position;
                 transform.DOKill(true);
@@ -161,7 +170,7 @@ public class Player : MonoBehaviour {
     void CheckUnder()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, _mesh.gameObject.GetComponent<CapsuleCollider>().radius, -transform.up, out hit, 1))
+        if (Physics.SphereCast(transform.position, _mesh.gameObject.GetComponent<CapsuleCollider>().radius, -transform.up, out hit, 10))
         {
             if (hit.transform.tag == "Ground")
             {
@@ -177,6 +186,7 @@ public class Player : MonoBehaviour {
     void ThrowShield()
     {
         m_hasShield = false;
+        m_isShielding = false;
         GameObject shield = Instantiate(Resources.Load("Prefabs/Shield"), transform.position, Quaternion.identity) as GameObject;
         shield.GetComponent<ShieldBounce>().m_owner = this.gameObject.transform.GetChild(0).gameObject;
     }
@@ -202,7 +212,7 @@ public class Player : MonoBehaviour {
                 if (behind < 0)
                 {
                     parCollision.transform.DOMove(parCollision.transform.position + m_bumpDirection * _bumpMultiplier 
-                        , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parCollision.gameObject.GetComponent<Monster>().Stun(1.0f)));
+                        , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parCollision.gameObject.GetComponent<Monster>().Stun(2.0f)));
                 }
             }
         }

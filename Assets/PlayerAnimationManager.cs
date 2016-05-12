@@ -32,20 +32,24 @@ public class PlayerAnimationManager : MonoBehaviour {
 
 
         //Shield States
-        if (!m_Player.m_isShielding)
+        if(m_Player.m_hasShield)
         {
-            if (m_currentlyShielding)
+            if (!m_Player.m_isShielding)
             {
-                m_Animator.SetTrigger("ShieldDown");
+                if (m_currentlyShielding)
+                {
+                    m_Animator.SetTrigger("ShieldDown");
+                }
+            }
+            else
+            {
+                if (!m_currentlyShielding)
+                {
+                    m_Animator.SetTrigger("ShieldUp");
+                }
             }
         }
-        else
-        {
-            if (!m_currentlyShielding)
-            {
-                m_Animator.SetTrigger("ShieldUp");
-            }
-        }
+        
 
         //Bumped States
 

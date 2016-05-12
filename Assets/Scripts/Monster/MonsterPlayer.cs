@@ -50,21 +50,17 @@ public class MonsterPlayer : Monster {
         if (_agent.enabled)
         {
             this._agent.Stop();
-            Debug.Log("stop");
         }
         Invoke("Reset", parTime);
-        
-        Debug.Log("time" + parTime);
         yield return null;
         
     }
 
     void Reset()
     {
-        Debug.Log("avant");
+
         if (_agent.enabled)
         {
-            Debug.Log("time");
             this._isStuned = false;
             //this._isBumped = false;
             this._agent.ResetPath();
@@ -83,11 +79,13 @@ public class MonsterPlayer : Monster {
         {
             if(PlayerManager.GetInstance()._playerList.Count > 0)
             {
-                int randPlayer = Random.Range(1, PlayerManager.GetInstance()._playerList.Count+1);
-                _target = GameObject.Find("Player" + randPlayer);
-            }else
+                int randPlayer = Random.Range(0, PlayerManager.GetInstance()._playerList.Count);
+                //_target = GameObject.Find("Player" + randPlayer);
+                _target = PlayerManager.GetInstance()._playerList[randPlayer].gameObject;
+            }
+            else
             {
-                _target = GameObject.Find("Cage");
+                _target = GameObject.FindGameObjectWithTag("Cage");
             }
             
         }
@@ -96,9 +94,10 @@ public class MonsterPlayer : Monster {
 
     public override void Attack(GameObject parPlayer)
     {
-        parPlayer.GetComponent<Player>()._currentBumpDirection = parPlayer.transform.position - transform.position;
+        Vector3 m_bumpDirection = new Vector3(parPlayer.transform.position.x, 0f, parPlayer.transform.position.z) - new Vector3(transform.position.x, 0f, transform.position.z);
+        parPlayer.GetComponent<Player>()._currentBumpDirection = m_bumpDirection;
         parPlayer.GetComponent<Player>()._isBumped = true;
-        parPlayer.transform.DOJump(parPlayer.transform.position + (transform.forward * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad))
+        parPlayer.transform.DOJump(parPlayer.transform.position + (m_bumpDirection * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad))
             .OnComplete(()=> parPlayer.GetComponent<Player>()._isBumped = false);
         
     }

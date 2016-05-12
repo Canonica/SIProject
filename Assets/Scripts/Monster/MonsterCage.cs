@@ -25,9 +25,12 @@ public class MonsterCage : Monster {
 
     public override void Attack(GameObject parCage)
     {
-        parCage.GetComponent<Player>()._currentBumpDirection = transform.position - parCage.transform.position;
+        Vector3 m_bumpDirection = new Vector3(parCage.transform.position.x, 0f, parCage.transform.position.z) - new Vector3(transform.position.x, 0f, transform.position.z);
+        parCage.GetComponent<Player>()._currentBumpDirection = m_bumpDirection;
+
+        parCage.GetComponent<Player>()._currentBumpDirection = m_bumpDirection;
         parCage.GetComponent<Player>()._isBumped = true;
-        parCage.transform.DOJump(parCage.transform.position + (transform.forward * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad))
+        parCage.transform.DOJump(parCage.transform.position + (m_bumpDirection * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad))
             .OnComplete(() => parCage.GetComponent<Player>()._isBumped = false);
     }
 
@@ -37,11 +40,9 @@ public class MonsterCage : Monster {
         if (_agent.enabled)
         {
             _agent.Stop();
-            Debug.Log("stop");
         }
         Invoke("Reset", parTime);
         
-        Debug.Log("time" +parTime);
         yield return null;
 
     }
@@ -78,10 +79,8 @@ public class MonsterCage : Monster {
 
     void Reset()
     {
-        Debug.Log("avant");
         if (_agent.enabled)
         {
-            Debug.Log("time");
             this._isStuned = false;
             //this._isBumped = false;
             _agent.ResetPath();
