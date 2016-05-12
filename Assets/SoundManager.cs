@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        speakerPrefab = Resources.Load<GameObject>("Speaker");
+        speakerPrefab = Resources.Load<GameObject>("Prefabs/Speaker");
     }
 
     public GameObject playSound(AudioClip myclip, float volume, bool doRandomPitch)
