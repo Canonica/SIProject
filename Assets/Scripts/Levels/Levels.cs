@@ -52,7 +52,6 @@ public class Levels : MonoBehaviour {
             {
                 if (currentTime > _timeWaves[i] && !_wavesArray[i]._hasStarted)
                 {
-                    Debug.Log("Start wave " + i);
                     StartWave(currentIndex);
                 }
             }

@@ -18,6 +18,10 @@ public class DeathZone : MonoBehaviour {
         {
             MonsterManager.GetInstance().RemoveMonster(other.gameObject);
         }
-        Destroy(other.gameObject);
+        if(other.gameObject.tag == "Enemy" || other.gameObject.tag == "Player")
+        {
+            Destroy(other.gameObject);
+        }
+        
     }
 }

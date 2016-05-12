@@ -5,6 +5,7 @@ using System.Collections;
 abstract public class Monster : MonoBehaviour {
 
     public bool _isBumped;
+    public bool _isStuned;
     public float _speed;
     public GameObject _target;
     public NavMeshAgent _agent;
@@ -14,6 +15,7 @@ abstract public class Monster : MonoBehaviour {
     public float _counterBumpForce;
     public float _bumpHeight;
     public float _bumpTime;
+    public Vector3 _currentBumpDirection;
 
     abstract public void FindTarget();
     abstract public void Attack(GameObject parTarget);
