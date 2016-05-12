@@ -9,7 +9,7 @@ public class MonsterCage : Monster {
         _agent = this.GetComponent<NavMeshAgent>();
         _target = GameObject.Find("Cage");
         InvokeRepeating("FindTarget", 0.5f, 0.5f);
-        InvokeRepeating("CheckUnder", 0.5f, 0.5f);
+        InvokeRepeating("CheckUnder", 0.5f, 0.1f);
 
     }
 
@@ -25,13 +25,16 @@ public class MonsterCage : Monster {
 
     public override void Attack(GameObject parCage)
     {
+        parCage.GetComponent<PlayerAnimationManager>().CancelInvoke("EndStun");
         Vector3 m_bumpDirection = new Vector3(parCage.transform.position.x, 0f, parCage.transform.position.z) - new Vector3(transform.position.x, 0f, transform.position.z);
         parCage.GetComponent<Player>()._currentBumpDirection = m_bumpDirection;
 
         parCage.GetComponent<Player>()._currentBumpDirection = m_bumpDirection;
         parCage.GetComponent<Player>()._isBumped = true;
+        parCage.GetComponent<PlayerAnimationManager>().StartBump();
         parCage.transform.DOJump(parCage.transform.position + (m_bumpDirection * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad))
             .OnComplete(() => parCage.GetComponent<Player>()._isBumped = false);
+        StartCoroutine(parCage.GetComponent<Player>().Stun(2.0f));
     }
 
     public override IEnumerator Stun(float parTime)
@@ -62,7 +65,7 @@ public class MonsterCage : Monster {
 
     void OnCollisionEnter(Collision parCollision)
     {
-        if (parCollision.transform.parent != null && parCollision.gameObject.transform.parent.gameObject.tag == "Player")
+        if (parCollision.transform.parent != null && parCollision.gameObject.transform.parent.gameObject.tag == "Player" && !_isStuned)
         {
             if (Vector3.Dot(transform.forward, parCollision.transform.forward) <= -0.75f && parCollision.gameObject.transform.parent.GetComponent<Player>().m_isShielding)
             {

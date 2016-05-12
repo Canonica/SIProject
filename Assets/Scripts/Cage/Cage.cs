@@ -39,6 +39,7 @@ public class Cage : MonoBehaviour {
     {
         if(_isBumped && (!parPlayer.GetComponent<Player>().m_isShielding || !parPlayer.GetComponent<Player>().m_hasShield))
         {
+            
             Vector3 m_tempEnemyPosition = new Vector3(parPlayer.transform.position.x, 0, parPlayer.transform.position.z);
             Vector3 m_tempPlayerPosition = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;
@@ -47,6 +48,7 @@ public class Cage : MonoBehaviour {
             float behind = Vector3.Dot(currentBumpDirection, m_bumpDirection);
             if (behind < 0)
             {
+                parPlayer.GetComponent<Player>()._isBumped = true;
                 parPlayer.transform.DOMove(parPlayer.transform.position + m_bumpDirection * _bumpMultiplier * Mathf.Abs(behind)
                     , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parPlayer.GetComponent<Monster>().Stun(1.0f))).OnComplete(() => parPlayer.GetComponent<Player>()._isBumped = false);
             }

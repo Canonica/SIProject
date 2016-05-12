@@ -12,6 +12,7 @@ public class PlayerAnimationManager : MonoBehaviour {
     private bool m_currentlyBumped;
     private bool m_currentlyThrowing;
     private bool m_currentlyShielding;
+    private bool m_currentlyStunned;
 
     // Use this for initialization
     void Start () {
@@ -21,14 +22,27 @@ public class PlayerAnimationManager : MonoBehaviour {
         m_currentlyShielding = false;
         m_currentlyBumped = false;
         m_currentlyThrowing = false;
+        m_currentlyStunned = false;
+
 
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        m_Animator.SetFloat("SpeedX", m_Player.m_vLeft);
-        m_Animator.SetFloat("SpeedY", m_Player.m_hLeft);
+        if(!m_Player._isStuned && !m_Player.m_needHelp)
+        {
+            m_Animator.SetFloat("SpeedX", m_Player.m_vLeft);
+            m_Animator.SetFloat("SpeedY", m_Player.m_hLeft);
+            
+        }
+        else
+        {
+            m_Animator.SetFloat("SpeedX", 0.0f);
+            m_Animator.SetFloat("SpeedY", 0.0f);
+        }
+        
+        
 
 
         //Shield States
@@ -53,20 +67,9 @@ public class PlayerAnimationManager : MonoBehaviour {
 
         //Bumped States
 
-        if(m_Player._isBumped)
-        {
-            if (!m_currentlyBumped)
-            {
-                m_Animator.SetTrigger("StartBumped");
-            }
-        }
-        else if(!m_Player._isBumped)
-        {
-            if (m_currentlyBumped)
-            {
-                m_Animator.SetTrigger("EndBumped");
-            }
-        }
+        
+
+        
 
         //Throwing State
         if (!m_Player.m_hasShield)
@@ -82,6 +85,19 @@ public class PlayerAnimationManager : MonoBehaviour {
         m_currentlyShielding = m_Player.m_isShielding;
         m_currentlyThrowing = !m_Player.m_hasShield;
         m_currentlyBumped = m_Player._isBumped;
+        m_currentlyStunned = m_Player._isStuned;
 
+    }
+
+    public void EndStun()
+    {
+        CancelInvoke("EndStun");
+        Debug.Log("EndBump");
+        m_Animator.SetTrigger("EndBumped");
+    }
+
+    public void StartBump()
+    {
+        m_Animator.SetTrigger("StartBumped");
     }
 }

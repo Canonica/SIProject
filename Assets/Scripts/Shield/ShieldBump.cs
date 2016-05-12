@@ -34,12 +34,20 @@ public class ShieldBump : MonoBehaviour {
 
         if(parPlayer.tag == "Player")
         {
-            parPlayer.GetComponent<Player>()._currentBumpDirection = -m_bumpDirection;
+            Vector3 _tempPosition = parPlayer.transform.position;
+            parPlayer.transform.DOKill(true);
+            parPlayer.transform.DOMove(_tempPosition, 0.0f);
+
+            parPlayer.GetComponent<Player>()._currentBumpDirection = m_bumpDirection;
             parPlayer.GetComponent<Player>()._isBumped = true;
             parPlayer.transform.DOJump(parPlayer.transform.position + (transform.forward * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad)).OnComplete(() => parPlayer.GetComponent<Player>()._isBumped = false);
         }
         else
         {
+            Vector3 _tempPosition = parPlayer.transform.position;
+            parPlayer.transform.DOKill(true);
+            parPlayer.transform.DOMove(_tempPosition, 0.0f);
+            
             parPlayer.GetComponent<Cage>().currentBumpDirection = -m_bumpDirection;
             parPlayer.GetComponent<Cage>()._isBumped = true;
             parPlayer.transform.DOJump(parPlayer.transform.position + (transform.forward * (_bumpForce/2)), 0.0f, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad)).OnComplete(() => parPlayer.GetComponent<Cage>()._isBumped = false);

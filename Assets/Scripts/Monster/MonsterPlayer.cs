@@ -12,7 +12,7 @@ public class MonsterPlayer : Monster {
         int randPlayer = Random.Range(1, PlayerManager.GetInstance()._playerList.Count+1);
         _target = GameObject.Find("Player" + randPlayer);
         InvokeRepeating("FindTarget", 0.5f, 0.5f);
-        InvokeRepeating("CheckUnder", 0.5f, 0.5f);
+        InvokeRepeating("CheckUnder", 0.5f, 0.1f);
 
 
     }
@@ -71,10 +71,35 @@ public class MonsterPlayer : Monster {
 
     public override void FindTarget()
     {
-        if(_target != null && !this._isStuned)
+        if(_target != null && !this._isStuned )
         {
-            _agent.ResetPath();
-            _agent.SetDestination(_target.transform.position);
+            if(_target.GetComponent<Player>())
+            {
+                if(!_target.GetComponent<Player>().m_needHelp)
+                {
+                    _agent.ResetPath();
+                    _agent.SetDestination(_target.transform.position);
+                }else
+                {
+                    if (PlayerManager.GetInstance()._playerList.Count > 0)
+                    {
+                        int randPlayer = Random.Range(0, PlayerManager.GetInstance()._playerList.Count);
+                        //_target = GameObject.Find("Player" + randPlayer);
+                        _target = PlayerManager.GetInstance()._playerList[randPlayer].gameObject;
+                    }
+                    else
+                    {
+                        _target = GameObject.FindGameObjectWithTag("Cage");
+                    }
+                }
+                
+            }
+            else if(!_target.GetComponent<Player>())
+            {
+                _agent.ResetPath();
+                _agent.SetDestination(_target.transform.position);
+            }
+            
         }else
         {
             if(PlayerManager.GetInstance()._playerList.Count > 0)
@@ -94,11 +119,15 @@ public class MonsterPlayer : Monster {
 
     public override void Attack(GameObject parPlayer)
     {
+        parPlayer.GetComponent<PlayerAnimationManager>().CancelInvoke("EndStun");
         Vector3 m_bumpDirection = new Vector3(parPlayer.transform.position.x, 0f, parPlayer.transform.position.z) - new Vector3(transform.position.x, 0f, transform.position.z);
         parPlayer.GetComponent<Player>()._currentBumpDirection = m_bumpDirection;
         parPlayer.GetComponent<Player>()._isBumped = true;
+        parPlayer.GetComponent<PlayerAnimationManager>().StartBump() ;
         parPlayer.transform.DOJump(parPlayer.transform.position + (m_bumpDirection * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad))
             .OnComplete(()=> parPlayer.GetComponent<Player>()._isBumped = false);
+        StartCoroutine(parPlayer.GetComponent<Player>().Stun(2.0f));
+
         
     }
 
@@ -118,7 +147,7 @@ public class MonsterPlayer : Monster {
     void OnCollisionEnter(Collision parCollision)
     {
 
-        if (parCollision.transform.parent != null && parCollision.gameObject.transform.parent.gameObject.tag == "Player")
+        if (parCollision.transform.parent != null && parCollision.gameObject.transform.parent.gameObject.tag == "Player" && !_isStuned)
         {
             if (Vector3.Dot(transform.forward, parCollision.transform.forward) <= -0.75f && parCollision.gameObject.transform.parent.GetComponent<Player>().m_isShielding && parCollision.gameObject.transform.parent.GetComponent<Player>().m_hasShield)
             {
