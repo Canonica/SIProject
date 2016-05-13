@@ -8,11 +8,18 @@ public class ShieldBump : MonoBehaviour {
     public float _bumpHeight;
     public float _bumpTime;
     public float _timeStun = 2.0f;
-
+    public GameObject shieldFx;
+    
     public GameObject _playerParent;
+    void Start()
+    {
+        shieldFx = Resources.Load("Prefabs/P_ImpactBouclier") as GameObject;
+    }
 
     public void Bump(GameObject parEnemy)
     {
+        GameObject temp = Instantiate(shieldFx, transform.position, Quaternion.identity) as GameObject;
+        Destroy(temp, 1f);
         Vector3 m_tempEnemyPosition = parEnemy.transform.position;
         Vector3 m_tempPlayerPosition = transform.position;
         Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;
@@ -27,6 +34,8 @@ public class ShieldBump : MonoBehaviour {
 
     public void BumpCageOrPlayer(GameObject parPlayer)
     {
+        GameObject temp = Instantiate(shieldFx, transform.position, Quaternion.identity) as GameObject;
+        Destroy(temp, 1f);
         Vector3 m_tempEnemyPosition = parPlayer.transform.position;
         Vector3 m_tempPlayerPosition = transform.position;
         Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;

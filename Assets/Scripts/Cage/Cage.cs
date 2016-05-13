@@ -9,10 +9,13 @@ public class Cage : MonoBehaviour {
     public Vector3 currentBumpDirection;
     public bool _isFlying;
 
+    public GameObject hitFx;
+
     // Use this for initialization
     void Start () {
         InvokeRepeating("CheckUnder", 0.5f, 0.01f);
         _isFlying = false;
+        hitFx = Resources.Load("Prefabs/P_AttackSurCage") as GameObject;
     }
 	
 	// Update is called once per frame
@@ -69,6 +72,7 @@ public class Cage : MonoBehaviour {
     {
         if (!_isBumped)
         {
+            GameObject tempFx = Instantiate(hitFx, transform.position, Quaternion.identity) as GameObject;
             _isBumped = true;
             Vector3 m_tempEnemyPosition = new Vector3(parEnemy.transform.position.x, 0,parEnemy.transform.position.z);
             Vector3 m_tempPlayerPosition = new Vector3(transform.position.x, 0, transform.position.z);
@@ -126,7 +130,7 @@ public class Cage : MonoBehaviour {
         //new Vector3(transform.position.x, transform.position.y - gameObject.GetComponent<CapsuleCollider>().height/2f, transform.position.z)
         if (Physics.SphereCast(transform.position, this.gameObject.GetComponent<CapsuleCollider>().radius, -transform.up, out hit, 0.5f))
         {
-            Debug.Log(hit.transform.name);
+
             if (hit.transform.tag == "Ground")
             {
                 _isFlying = false;

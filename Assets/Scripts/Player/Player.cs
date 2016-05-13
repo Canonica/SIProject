@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
     public GameObject _playerToHelp;
     public List<GameObject> m_playerHelping;
 
+    public Clignotage clignotage;
+
     public float _speed;
     public float _rotateSpeed;
     public float _stunPlayer = 2.0f;
@@ -67,6 +69,7 @@ public class Player : MonoBehaviour {
         _meshTriggerShield.SetActive(false);
         CheckUnder();
         InvokeRepeating("CheckUnder", 0.5f, 0.01f);
+        clignotage = GetComponent<Clignotage>();
     }
 
     // Update is called once per frame
@@ -372,6 +375,7 @@ public class Player : MonoBehaviour {
 
     public IEnumerator Stun()
     {
+        clignotage.HitClignote();
         _isStuned = true;
         CancelInvoke("Reset");
         GetComponent<PlayerAnimationManager>().Invoke("EndStun", _stunPlayer - 0.7f);

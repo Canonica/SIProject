@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
-public class Clignotage : MonoBehaviour {
+public class ClignotageMonster : MonoBehaviour {
 
     public GameObject objectToGetRenderer;
     Renderer renderer;
@@ -10,7 +10,7 @@ public class Clignotage : MonoBehaviour {
     // Use this for initialization
     void Start () {
         renderer = objectToGetRenderer.GetComponent<Renderer>();
-        _initialFresnel = renderer.material.GetFloat("_fresnel_strength");
+        _initialFresnel = renderer.materials[1].GetFloat("_fresnel_strength");
     }
 	
 	// Update is called once per frame
@@ -19,6 +19,6 @@ public class Clignotage : MonoBehaviour {
 
     public void HitClignote()
     {
-        renderer.material.DOFloat(0, "_fresnel_strength", 0.2f).OnComplete(() => renderer.material.DOFloat(_initialFresnel, "_fresnel_strength", 1f));
+        renderer.materials[1].DOFloat(0, "_fresnel_strength", 0.2f).OnComplete(() => renderer.materials[1].DOFloat(_initialFresnel, "_fresnel_strength", 1f));
     }
 }

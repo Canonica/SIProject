@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour {
         {
             isfinished = true;
             GameManager.GetInstance().EndGame(true);
+            GameObject.Find("P_Coeurs").GetComponent<ParticleSystem>().Play();
         }
 	}
 

@@ -57,9 +57,9 @@ public class BeforeFight : MonoBehaviour
 
         }
         text.CrossFadeAlpha(1f, 0.2f, false);
-        text.text = "DEFEND YOUR PRINCE";
-        text.color = Color.red;
-        if (text.text == "DEFEND YOUR PRINCE")
+        text.text = "defend your prince !";
+        text.color = Color.white;
+        if (text.text == "defend your prince !")
         {
             text.CrossFadeAlpha(1f, 0f, false);
             yield return new WaitForSeconds(0.5f);

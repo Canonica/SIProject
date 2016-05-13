@@ -5,11 +5,18 @@ using DG.Tweening;
 
 public class MonsterCage : Monster {
 
+    public GameObject _spawnFx;
+    public GameObject _bloodFx;
     void Start () {
         _agent = this.GetComponent<NavMeshAgent>();
         _target = GameObject.Find("Cage");
         InvokeRepeating("FindTarget", 0.5f, 0.5f);
         InvokeRepeating("CheckUnder", 0.5f, 0.1f);
+        _spawnFx = Resources.Load("Prefabs/P_Spawn") as GameObject;
+        Instantiate(_spawnFx);
+        _spawnFx.transform.position = this.transform.position;
+        _spawnFx.GetComponent<ParticleSystem>().Play();
+        _bloodFx = Resources.Load("Prefabs/P_Blood") as GameObject;
 
     }
 
@@ -43,13 +50,16 @@ public class MonsterCage : Monster {
 
     public override IEnumerator Stun()
     {
+        this.GetComponent<ClignotageMonster>().HitClignote();
         this._isStuned = true;
         if (_agent.enabled)
         {
             _agent.Stop();
         }
         GetComponent<MonsterAnimationManager>().StopBump();
-        Invoke("Reset", _stunTimeMonster);
+        GameObject tempBlood = Instantiate(_bloodFx, transform.position + new Vector3(0, 0.3f, 0), Quaternion.Euler(-90, 0, 0)) as GameObject;
+        Destroy(tempBlood, 2f);
+        Invoke("Reset", parTime);
         
         yield return null;
 
