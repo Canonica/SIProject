@@ -59,7 +59,7 @@ public class MonsterCage : Monster {
         GetComponent<MonsterAnimationManager>().StopBump();
         GameObject tempBlood = Instantiate(_bloodFx, transform.position + new Vector3(0, 0.3f, 0), Quaternion.Euler(-90, 0, 0)) as GameObject;
         Destroy(tempBlood, 2f);
-        Invoke("Reset", parTime);
+        Invoke("Reset", _stunTimeMonster);
         
         yield return null;
 

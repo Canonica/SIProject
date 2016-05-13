@@ -358,6 +358,11 @@ public class Player : MonoBehaviour {
         GetComponent<SphereCollider>().enabled = true;
         transform.position = new Vector3(transform.position.x, transform.position.y - m_playerHeight, transform.position.z);
         _mesh.transform.LookAt(new Vector3(0.0f, transform.position.y, 0.0f));
+
+        for(int i= 0; i<MonsterManager.GetInstance()._listOfMonster.Count; i++)
+        {
+            MonsterManager.GetInstance()._listOfMonster[i].GetComponent<Monster>().FindTarget();
+        }
     }
 
     public void Revive(GameObject parPlayer)
