@@ -42,6 +42,7 @@ public class Player : MonoBehaviour {
     public bool m_isFlying;
     bool buttonPressedA;
     public bool _isStuned;
+    public bool m_bumping;
 
     public Vector3 _currentBumpDirection;
     public float _bumpMultiplier;
@@ -143,9 +144,12 @@ public class Player : MonoBehaviour {
 
             m_isShielding = true;
             
-            if (m_isShielding && m_bump > 0.3f)
+            if (m_isShielding && m_bump > 0.3f && !m_bumping)
             {
                 StartCoroutine(ActivateBump(0.1f));
+                StartCoroutine(Wait(1.0f));
+                GetComponent<PlayerAnimationManager>().ShieldHit();
+                m_bumping = true;
             }
 
         }
@@ -192,8 +196,12 @@ public class Player : MonoBehaviour {
         RaycastHit m_hit;
         if (Physics.SphereCast(transform.position, gameObject.transform.GetChild(0).GetComponent<CapsuleCollider>().radius, parDirection, out m_hit, Mathf.Infinity))
         {
-            if ((m_hit.collider.tag == "Obstacle" || m_hit.collider.name == "Cage") && m_hit.distance <= gameObject.transform.GetChild(0).GetComponent<CapsuleCollider>().radius*2 + 0.1f)
+            if ((m_hit.collider.tag == "Obstacle" || m_hit.collider.name == "Cage" || m_hit.collider.tag == "MoveObstacle") && m_hit.distance <= gameObject.transform.GetChild(0).GetComponent<CapsuleCollider>().radius*2 + 0.1f)
             {
+                if(m_hit.collider.tag == "MoveObstacle")
+                {
+                    m_hit.collider.gameObject.GetComponent<BumpObstacle>().Bump(parDirection);
+                }
                 Vector3 _tempPosition = transform.position;
                 transform.DOKill(true);
                 transform.DOMove(_tempPosition, 0.0f).OnComplete(() => _isBumped = false);
@@ -220,9 +228,20 @@ public class Player : MonoBehaviour {
             m_currentTime += 0.1f;
             yield return new WaitForSeconds(0.1f);
         }
-
+        
         _meshTriggerShield.SetActive(false);
         
+    }
+
+    IEnumerator Wait(float parTimer)
+    {
+        float m_currentTime = 0;
+        while (m_currentTime < parTimer)
+        {
+            m_currentTime += 0.1f;
+            yield return new WaitForSeconds(0.1f);
+        }
+        m_bumping = false;
     }
 
     void CheckUnder()
@@ -324,7 +343,7 @@ public class Player : MonoBehaviour {
     {
         Debug.Log("need help");
         m_needHelp = true;
-
+        GetComponent<PlayerAnimationManager>().StartFalling();
         Vector3 _tempPosition = transform.position;
         transform.DOKill(true);
         
@@ -340,6 +359,7 @@ public class Player : MonoBehaviour {
 
     public void Revive(GameObject parPlayer)
     {
+        GetComponent<PlayerAnimationManager>().EndFalling();
         _reviveCount = 0;
         m_needHelp = false;
         PlayerManager.GetInstance()._playerList.Add(this.GetComponent<Player>());
@@ -354,7 +374,6 @@ public class Player : MonoBehaviour {
     {
         _isStuned = true;
         CancelInvoke("Reset");
-        GameManager.GetInstance()._camera.transform.DOShakePosition(0.2f);
         GetComponent<PlayerAnimationManager>().Invoke("EndStun", _stunPlayer - 0.7f);
         Invoke("Reset", _stunPlayer);
         yield return null;

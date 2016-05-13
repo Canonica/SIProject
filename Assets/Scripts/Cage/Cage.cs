@@ -32,7 +32,9 @@ public class Cage : MonoBehaviour {
 
     void OnCollisionEnter(Collision  other)
     {
-        if(other.transform.tag == "Enemy")
+
+        
+        if (other.transform.tag == "Enemy")
         {
             Bump(other.gameObject);
         }else if(other.gameObject.transform.parent != null && other.gameObject.transform.parent.tag == "Player")
@@ -73,6 +75,7 @@ public class Cage : MonoBehaviour {
             Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;
             currentBumpDirection = m_bumpDirection;
             this.transform.DOMove(transform.position - m_bumpDirection*2 , 1f).SetEase(Ease.OutQuint).OnComplete(() => NotBumped());
+            GameManager.GetInstance()._camera.transform.DOShakePosition(0.2f);
         }
         else 
         {
@@ -98,8 +101,12 @@ public class Cage : MonoBehaviour {
         RaycastHit m_hit;
         if (Physics.SphereCast(transform.position, gameObject.GetComponent<CapsuleCollider>().radius/2, -parDirection, out m_hit, Mathf.Infinity))
         {
-            if (m_hit.collider.tag == "Obstacle" && m_hit.distance <= gameObject.GetComponent<CapsuleCollider>().radius+0.1f)
+            if ((m_hit.collider.tag == "Obstacle"  || m_hit.collider.tag == "MoveObstacle") && m_hit.distance <= gameObject.GetComponent<CapsuleCollider>().radius+0.1f)
             {
+                if (m_hit.collider.tag == "MoveObstacle")
+                {
+                    m_hit.collider.gameObject.GetComponent<BumpObstacle>().Bump(parDirection);
+                }
                 Vector3 _tempPosition = transform.position;
                 transform.DOKill(true);
                 transform.DOMove(_tempPosition, 0.0f).OnComplete(() => _isBumped = false);
@@ -123,11 +130,15 @@ public class Cage : MonoBehaviour {
             if (hit.transform.tag == "Ground")
             {
                 _isFlying = false;
+                GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                
             }
         }
         else
         {
             _isFlying = true;
+            GetComponent<Rigidbody>().AddExplosionForce(10f, new Vector3(0f,5f,0f), 100);
+            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
     }
 }

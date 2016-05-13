@@ -115,8 +115,12 @@ public class MonsterCage : Monster {
         RaycastHit m_hit;
         if (Physics.SphereCast(transform.position, gameObject.GetComponent<CapsuleCollider>().radius, parDirection, out m_hit, Mathf.Infinity))
         {
-            if ((m_hit.collider.tag == "Obstacle" || m_hit.collider.name == "Cage") && m_hit.distance <= gameObject.GetComponent<CapsuleCollider>().radius + 0.1f)
+            if ((m_hit.collider.tag == "Obstacle" || m_hit.collider.name == "Cage" || m_hit.collider.tag == "MoveObstacle") && m_hit.distance <= gameObject.GetComponent<CapsuleCollider>().radius + 0.1f)
             {
+                if (m_hit.collider.tag == "MoveObstacle")
+                {
+                    m_hit.collider.gameObject.GetComponent<BumpObstacle>().Bump(parDirection);
+                }
                 Vector3 _tempPosition = transform.position;
                 transform.DOKill(true);
                 transform.DOMove(_tempPosition, 0.0f).OnComplete(() => this._isBumped = false);

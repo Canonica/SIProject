@@ -23,11 +23,7 @@ public class ShieldBump : MonoBehaviour {
         StartCoroutine(parEnemy.GetComponent<Monster>().Stun());
         parEnemy.GetComponent<MonsterAnimationManager>().LaunchBump();
     }
-
-    void LaunchStun(GameObject parEnemy)
-    {
-        
-    }
+   
 
     public void BumpCageOrPlayer(GameObject parPlayer)
     {
@@ -47,6 +43,7 @@ public class ShieldBump : MonoBehaviour {
         }
         else
         {
+            GameManager.GetInstance()._camera.transform.DOShakePosition(0.2f);
             Vector3 _tempPosition = parPlayer.transform.position;
             parPlayer.transform.DOKill(true);
             parPlayer.transform.DOMove(_tempPosition, 0.0f);
@@ -65,18 +62,18 @@ public class ShieldBump : MonoBehaviour {
         if (parCollider.gameObject.tag == "Enemy")
         {
             Debug.Log("test");
-            //XInput.instance.useVibe(_playerParent.GetComponent<Player>()._playerId, 0.1f, 0.15f, 0.15f);
+            XInput.instance.useVibe(_playerParent.GetComponent<Player>()._playerId, 0.1f, 0.15f, 0.15f);
             Bump(parCollider.gameObject);
         }else if(parCollider.gameObject.tag == "Player" && parCollider.gameObject != this.gameObject.transform.parent.parent.gameObject)
         {
             Debug.Log("test");
-            //XInput.instance.useVibe(_playerParent.GetComponent<Player>()._playerId, 0.1f, 0.15f, 0.15f);
+            XInput.instance.useVibe(_playerParent.GetComponent<Player>()._playerId, 0.1f, 0.15f, 0.15f);
             Debug.Log(parCollider.gameObject);
             BumpCageOrPlayer(parCollider.gameObject);
         }else if(parCollider.gameObject.tag == "Cage")
         {
             Debug.Log("test");
-            //XInput.instance.useVibe(_playerParent.GetComponent<Player>()._playerId, 0.1f, 0.15f, 0.15f);
+            XInput.instance.useVibe(_playerParent.GetComponent<Player>()._playerId, 0.1f, 0.15f, 0.15f);
             BumpCageOrPlayer(parCollider.gameObject);
         }
 

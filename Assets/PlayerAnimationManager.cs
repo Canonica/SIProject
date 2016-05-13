@@ -46,7 +46,7 @@ public class PlayerAnimationManager : MonoBehaviour {
             //m_Animator.SetFloat("SpeedY", m_Player.m_vLeft * -m_Player.m_vRight);
             //m_Animator.SetFloat("SpeedX", 1);
 
-            m_xValue = m_Player.m_hLeft;
+            /*m_xValue = m_Player.m_hLeft;
             m_yValue = m_Player.m_vLeft;
 
             m_rightDirectionForward = new Vector2(m_Player.m_hRight, m_Player.m_vRight);
@@ -60,9 +60,10 @@ public class PlayerAnimationManager : MonoBehaviour {
 
 
             m_Animator.SetFloat("SpeedX", ((m_Player.m_hLeft * Mathf.Cos(90) - m_Player.m_vLeft * Mathf.Sin(90)) + (m_Player.m_hLeft * Mathf.Sin(90) + m_Player.m_vLeft * Mathf.Cos(90))));
-            m_Animator.SetFloat("SpeedY", -dotForward);
+            m_Animator.SetFloat("SpeedY", -dotForward);*/
 
-
+            m_Animator.SetFloat("SpeedX", m_Player.m_hLeft);
+            m_Animator.SetFloat("SpeedY", m_Player.m_vLeft);
 
 
         }
@@ -95,12 +96,6 @@ public class PlayerAnimationManager : MonoBehaviour {
         }
         
 
-        //Bumped States
-
-        
-
-        
-
         //Throwing State
         if (!m_Player.m_hasShield)
         {
@@ -110,13 +105,18 @@ public class PlayerAnimationManager : MonoBehaviour {
             }
         }
 
-
+    
         //Update Helpers
         m_currentlyShielding = m_Player.m_isShielding;
         m_currentlyThrowing = !m_Player.m_hasShield;
         m_currentlyBumped = m_Player._isBumped;
         m_currentlyStunned = m_Player._isStuned;
         
+    }
+
+    public void ShieldHit()
+    {
+        m_Animator.SetTrigger("ShieldHit");
     }
 
     public void ShieldUp()
@@ -150,5 +150,15 @@ public class PlayerAnimationManager : MonoBehaviour {
     public void StartThrow()
     {
         m_Animator.SetTrigger("StartThrowing");
+    }
+
+    public void StartFalling()
+    {
+        m_Animator.SetTrigger("StartFalling");
+    }
+
+    public void EndFalling()
+    {
+        m_Animator.SetTrigger("EndFalling");
     }
 }
