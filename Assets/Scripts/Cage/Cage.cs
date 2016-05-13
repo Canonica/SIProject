@@ -9,10 +9,26 @@ public class Cage : MonoBehaviour {
     public Vector3 currentBumpDirection;
     public bool _isFlying;
 
+
+    bool playSound;
     public GameObject hitFx;
 
+    public AudioClip audioclipCry1;
+    public AudioClip audioclipCry2;
+    public AudioClip audioclipCry3;
+    public AudioClip audioclipCry4;
+    public AudioClip audioclipCry5;
+    public AudioClip audioclipFall;
+    private GameObject speakerMainCry;
+
+    public AudioClip audioclipCreak1;
+    public AudioClip audioclipCreak2;
+    public AudioClip audioclipCreak3;
+    public AudioClip audioclipCreak4;
+    private GameObject speakerMainCreak;
     // Use this for initialization
     void Start () {
+        playSound = false;
         InvokeRepeating("CheckUnder", 0.5f, 0.01f);
         _isFlying = false;
         hitFx = Resources.Load("Prefabs/P_AttackSurCage") as GameObject;
@@ -22,8 +38,23 @@ public class Cage : MonoBehaviour {
 	void Update () {
         if (_isBumped)
         {
-            
+            if (!playSound)
+            {
+                int randomChance = Random.RandomRange(0, 10);
+                if (randomChance >= 9)
+                {
+                    speakerMainCry = SoundManager.Instance.RandomizeSfx(audioclipCry1, audioclipCry2, audioclipCry3, audioclipCry4, audioclipCry5);
+                    speakerMainCry.GetComponent<AudioSource>().loop = false;
+                    speakerMainCreak = SoundManager.Instance.RandomizeSfx(audioclipCreak1, audioclipCreak2, audioclipCreak3, audioclipCreak4);
+                    speakerMainCreak.GetComponent<AudioSource>().loop = false;
+                }
+                playSound = true;
+            }
             CheckCollision(currentBumpDirection);
+        }
+        else
+        {
+            playSound = false;
         }
 
         if (_isFlying && !_isBumped)

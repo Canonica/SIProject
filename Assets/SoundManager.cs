@@ -38,7 +38,7 @@ public class SoundManager : MonoBehaviour
         if (doIntro)
         {
             audioSource.DOFade(0, 0);
-            audioSource.DOFade(0.8f, 8f);
+            audioSource.DOFade(0.2f, 8f);
         }
         audioSource.clip = myclip;
         audioSource.Play();
