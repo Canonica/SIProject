@@ -227,7 +227,7 @@ public class Player : MonoBehaviour {
     void CheckUnder()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, _mesh.gameObject.GetComponent<CapsuleCollider>().radius, -transform.up, out hit, 10))
+        if (Physics.SphereCast(transform.position, _mesh.gameObject.GetComponent<CapsuleCollider>().radius, -transform.up, out hit, 3))
         {
             if (hit.transform.tag == "Ground")
             {
@@ -328,7 +328,7 @@ public class Player : MonoBehaviour {
         transform.DOKill(true);
         
         float m_playerHeight = GetComponent<CharacterController>().height*2f;
-        transform.DOMove(new Vector3(_tempPosition.x, _tempPosition.y - m_playerHeight, _tempPosition.z), 0.0f);
+        transform.DOMove(new Vector3(_tempPosition.x, _tempPosition.y , _tempPosition.z), 0.0f);
   
         PlayerManager.GetInstance()._playerList.Remove(this.GetComponent<Player>());
         GetComponent<CharacterController>().enabled = false;

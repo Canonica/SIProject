@@ -51,6 +51,7 @@ public class MonsterPlayer : Monster {
         {
             this._agent.Stop();
         }
+        GetComponent<MonsterAnimationManager>().StopBump();
         Invoke("Reset", parTime);
         yield return null;
         

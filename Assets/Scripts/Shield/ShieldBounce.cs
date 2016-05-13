@@ -59,28 +59,13 @@ public class ShieldBounce : MonoBehaviour {
             Vector3 m_bumpDirection = m_tempEnemyPosition - m_tempPlayerPosition;
             m_bumpDirection.Normalize();
 
-            /*if(parCollider.GetComponent<MonsterCage>())
-            {
-                StartCoroutine(parCollider.GetComponent<MonsterCage>().Stun(2.0f));
-
-                parCollider.GetComponent<MonsterCage>()._currentBumpDirection = -m_bumpDirection;
-                parCollider.GetComponent<MonsterCage>()._isBumped = true;
-                parCollider.transform.DOMove(parCollider.transform.position - m_bumpDirection * m_bumpForce, 0.5f).OnComplete(() => parCollider.GetComponent<MonsterCage>()._isBumped = false);
-            }
-            else if(parCollider.GetComponent<MonsterPlayer>())
-            {
-                StartCoroutine(parCollider.GetComponent<MonsterPlayer>().Stun(2.0f));
-
-                parCollider.GetComponent<MonsterPlayer>()._currentBumpDirection = -m_bumpDirection;
-                parCollider.GetComponent<MonsterPlayer>()._isBumped = true;
-                parCollider.transform.DOMove(parCollider.transform.position - m_bumpDirection * m_bumpForce, 0.5f).OnComplete(() => parCollider.GetComponent<MonsterPlayer>()._isBumped = false);
-            }*/
+            
             StartCoroutine(parCollider.GetComponent<Monster>().Stun(2.0f));
 
             parCollider.GetComponent<Monster>()._currentBumpDirection = -m_bumpDirection;
             parCollider.GetComponent<Monster>()._isBumped = true;
             parCollider.transform.DOMove(parCollider.transform.position - m_bumpDirection * m_bumpForce, 0.5f).OnComplete(() => parCollider.GetComponent<Monster>()._isBumped = false);
-
+            parCollider.GetComponent<MonsterAnimationManager>().LaunchBump();
             m_listOfMonstersHit.Add(parCollider.gameObject);
             m_tempListOfMonsters.Remove(parCollider.gameObject);
 

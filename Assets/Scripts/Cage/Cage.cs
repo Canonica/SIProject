@@ -86,6 +86,7 @@ public class Cage : MonoBehaviour {
             float behind = Vector3.Dot(currentBumpDirection, m_bumpDirection);
             if(behind < 0)
             {
+                parEnemy.GetComponent<MonsterAnimationManager>().LaunchBump();
                 parEnemy.transform.DOMove(parEnemy.transform.position + m_bumpDirection * _bumpMultiplier * Mathf.Abs(behind)
                     , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parEnemy.GetComponent<Monster>().Stun(1.0f)));
             }
@@ -95,7 +96,7 @@ public class Cage : MonoBehaviour {
     void CheckCollision(Vector3 parDirection)
     {
         RaycastHit m_hit;
-        if (Physics.SphereCast(transform.position, gameObject.GetComponent<CapsuleCollider>().radius, -parDirection, out m_hit, Mathf.Infinity))
+        if (Physics.SphereCast(transform.position, gameObject.GetComponent<CapsuleCollider>().radius/2, -parDirection, out m_hit, Mathf.Infinity))
         {
             if (m_hit.collider.tag == "Obstacle" && m_hit.distance <= gameObject.GetComponent<CapsuleCollider>().radius+0.1f)
             {
@@ -115,8 +116,10 @@ public class Cage : MonoBehaviour {
     void CheckUnder()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, this.gameObject.GetComponent<CapsuleCollider>().radius, -transform.up, out hit, 10))
+        //new Vector3(transform.position.x, transform.position.y - gameObject.GetComponent<CapsuleCollider>().height/2f, transform.position.z)
+        if (Physics.SphereCast(transform.position, this.gameObject.GetComponent<CapsuleCollider>().radius, -transform.up, out hit, 0.5f))
         {
+            Debug.Log(hit.transform.name);
             if (hit.transform.tag == "Ground")
             {
                 _isFlying = false;

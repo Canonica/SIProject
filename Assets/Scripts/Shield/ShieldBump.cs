@@ -19,6 +19,7 @@ public class ShieldBump : MonoBehaviour {
         parEnemy.GetComponent<Monster>()._isBumped = true;*/
         parEnemy.transform.DOJump(parEnemy.transform.position + (transform.forward * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad));
         StartCoroutine(parEnemy.GetComponent<Monster>().Stun(_timeStun));
+        parEnemy.GetComponent<MonsterAnimationManager>().LaunchBump();
     }
 
     void LaunchStun(GameObject parEnemy)

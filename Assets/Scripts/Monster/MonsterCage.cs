@@ -28,6 +28,7 @@ public class MonsterCage : Monster {
 
     public override void Attack(GameObject parCage)
     {
+        GetComponent<MonsterAnimationManager>().StartAttack();
         parCage.GetComponent<PlayerAnimationManager>().CancelInvoke("EndStun");
         Vector3 m_bumpDirection = new Vector3(parCage.transform.position.x, 0f, parCage.transform.position.z) - new Vector3(transform.position.x, 0f, transform.position.z);
         parCage.GetComponent<Player>()._currentBumpDirection = m_bumpDirection;
@@ -47,6 +48,7 @@ public class MonsterCage : Monster {
         {
             _agent.Stop();
         }
+        GetComponent<MonsterAnimationManager>().StopBump();
         Invoke("Reset", parTime);
         
         yield return null;
@@ -75,6 +77,7 @@ public class MonsterCage : Monster {
                 this._currentBumpDirection = -transform.forward;
                 this._isBumped = true;
                 transform.DOMove(transform.position - (transform.forward * _counterBumpForce), 0.3f).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad)).OnComplete(() => this._isBumped = false);
+                GetComponent<MonsterAnimationManager>().LaunchBump();
             }
             else if(!parCollision.gameObject.transform.parent.gameObject.GetComponent<Player>()._isBumped)
             {
@@ -144,6 +147,7 @@ public class MonsterCage : Monster {
             CancelInvoke("FindTarget");
             _agent.enabled = false;
             this.m_isFlying = true;
+            GetComponent<MonsterAnimationManager>().StartFalling();
         }
     }
 }
