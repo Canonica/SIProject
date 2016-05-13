@@ -58,7 +58,7 @@ public class Cage : MonoBehaviour {
             {
                 parPlayer.GetComponent<Player>()._isBumped = true;
                 parPlayer.transform.DOMove(parPlayer.transform.position + m_bumpDirection * _bumpMultiplier * Mathf.Abs(behind)
-                    , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parPlayer.GetComponent<Monster>().Stun(1.0f))).OnComplete(() => parPlayer.GetComponent<Player>()._isBumped = false);
+                    , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parPlayer.GetComponent<Monster>().Stun())).OnComplete(() => parPlayer.GetComponent<Player>()._isBumped = false);
             }
         }
     }
@@ -88,7 +88,7 @@ public class Cage : MonoBehaviour {
             {
                 parEnemy.GetComponent<MonsterAnimationManager>().LaunchBump();
                 parEnemy.transform.DOMove(parEnemy.transform.position + m_bumpDirection * _bumpMultiplier * Mathf.Abs(behind)
-                    , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parEnemy.GetComponent<Monster>().Stun(1.0f)));
+                    , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parEnemy.GetComponent<Monster>().Stun()));
             }
         }
     }

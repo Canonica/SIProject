@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
 
     public float _speed;
     public float _rotateSpeed;
+    public float _stunPlayer = 2.0f;
 
     private float m_CurrentSpeed;
 
@@ -269,7 +270,7 @@ public class Player : MonoBehaviour {
                 if (behind < 0)
                 {
                     parCollision.transform.DOMove(parCollision.transform.position + m_bumpDirection * _bumpMultiplier 
-                        , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parCollision.gameObject.GetComponent<Monster>().Stun(2.0f)));
+                        , 1f).SetEase(Ease.OutQuint).OnComplete(() => StartCoroutine(parCollision.gameObject.GetComponent<Monster>().Stun()));
                 }
             }
         }
@@ -349,12 +350,13 @@ public class Player : MonoBehaviour {
                                         parPlayer.transform.position.z  - parPlayer.GetComponent<Player>()._mesh.transform.forward.z*2.0f);
     }
 
-    public IEnumerator Stun(float parTime)
+    public IEnumerator Stun()
     {
         _isStuned = true;
         CancelInvoke("Reset");
-        GetComponent<PlayerAnimationManager>().Invoke("EndStun", parTime - 0.7f);
-        Invoke("Reset", parTime);
+        GameManager.GetInstance()._camera.transform.DOShakePosition(0.2f);
+        GetComponent<PlayerAnimationManager>().Invoke("EndStun", _stunPlayer - 0.7f);
+        Invoke("Reset", _stunPlayer);
         yield return null;
 
     }

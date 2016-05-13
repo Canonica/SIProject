@@ -44,7 +44,7 @@ public class MonsterPlayer : Monster {
         }
     }
 
-    public override IEnumerator Stun(float parTime)
+    public override IEnumerator Stun()
     {
         this._isStuned = true;
         if (_agent.enabled)
@@ -52,7 +52,7 @@ public class MonsterPlayer : Monster {
             this._agent.Stop();
         }
         GetComponent<MonsterAnimationManager>().StopBump();
-        Invoke("Reset", parTime);
+        Invoke("Reset", _stunTimeMonster);
         yield return null;
         
     }
@@ -127,7 +127,7 @@ public class MonsterPlayer : Monster {
         parPlayer.GetComponent<PlayerAnimationManager>().StartBump() ;
         parPlayer.transform.DOJump(parPlayer.transform.position + (m_bumpDirection * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad))
             .OnComplete(()=> parPlayer.GetComponent<Player>()._isBumped = false);
-        StartCoroutine(parPlayer.GetComponent<Player>().Stun(2.0f));
+        StartCoroutine(parPlayer.GetComponent<Player>().Stun());
 
         
     }

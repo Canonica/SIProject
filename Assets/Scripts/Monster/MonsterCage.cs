@@ -38,10 +38,10 @@ public class MonsterCage : Monster {
         parCage.GetComponent<PlayerAnimationManager>().StartBump();
         parCage.transform.DOJump(parCage.transform.position + (m_bumpDirection * _bumpForce), _bumpHeight, 1, _bumpTime).SetEase(EaseFactory.StopMotion(60, Ease.InOutQuad))
             .OnComplete(() => parCage.GetComponent<Player>()._isBumped = false);
-        StartCoroutine(parCage.GetComponent<Player>().Stun(2.0f));
+        StartCoroutine(parCage.GetComponent<Player>().Stun());
     }
 
-    public override IEnumerator Stun(float parTime)
+    public override IEnumerator Stun()
     {
         this._isStuned = true;
         if (_agent.enabled)
@@ -49,7 +49,7 @@ public class MonsterCage : Monster {
             _agent.Stop();
         }
         GetComponent<MonsterAnimationManager>().StopBump();
-        Invoke("Reset", parTime);
+        Invoke("Reset", _stunTimeMonster);
         
         yield return null;
 

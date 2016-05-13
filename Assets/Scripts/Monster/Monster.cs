@@ -15,11 +15,12 @@ abstract public class Monster : MonoBehaviour {
     public float _counterBumpForce;
     public float _bumpHeight;
     public float _bumpTime;
+    public float _stunTimeMonster = 2.0f;
     public Vector3 _currentBumpDirection;
 
     abstract public void FindTarget();
     abstract public void Attack(GameObject parTarget);
     abstract public void Death();
-    abstract public IEnumerator Stun(float parTime);
+    abstract public IEnumerator Stun();
 	
 }

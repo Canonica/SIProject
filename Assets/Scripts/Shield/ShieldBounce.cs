@@ -60,7 +60,7 @@ public class ShieldBounce : MonoBehaviour {
             m_bumpDirection.Normalize();
 
             
-            StartCoroutine(parCollider.GetComponent<Monster>().Stun(2.0f));
+            StartCoroutine(parCollider.GetComponent<Monster>().Stun());
 
             parCollider.GetComponent<Monster>()._currentBumpDirection = -m_bumpDirection;
             parCollider.GetComponent<Monster>()._isBumped = true;

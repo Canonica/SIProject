@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject _camera;
     private static GameManager _instance = null;
     public Text _textWin;
     public static GameManager GetInstance()
