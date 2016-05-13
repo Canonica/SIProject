@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance = null;
-
+    public Text _textWin;
     public static GameManager GetInstance()
     {
         return _instance;
@@ -24,16 +26,34 @@ public class GameManager : MonoBehaviour
         
     }
 
+    void OnLevelWasLoaded(int level)
+    {
+        if(level == 1)
+        {
+            _textWin = GameObject.Find("TextWin").GetComponent<Text>();
+            _textWin.DOFade(0, 0);
+        }
+    }
+
     public void EndGame(bool won)
     {
         if (!won)
         {
-            Debug.Log("loose");
+            _textWin.text = "DEFEAT";
+            _textWin.DOFade(1, 0.7f).OnComplete(()=>_textWin.transform.DOShakePosition(3, 2, 10).OnComplete(() => _textWin.DOFade(0, 0.7f)));
+            Invoke("GoBackMainMenu", 4);
         }
         else
         {
-            Debug.Log("win");
+            _textWin.text = "VICTORY";
+            _textWin.DOFade(1, 0.7f).OnComplete(() => _textWin.transform.DOShakePosition(3, 2, 10).OnComplete(()=> _textWin.DOFade(0, 0.7f)));
+            Invoke("GoBackMainMenu", 4);
         }
+    }
+
+    public void GoBackMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
 

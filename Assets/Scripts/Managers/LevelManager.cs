@@ -5,6 +5,8 @@ public class LevelManager : MonoBehaviour {
 
     public Levels[] _allLevels;
     public float _delayBetweenLevels;
+
+    public bool isfinished;
 	// Use this for initialization
 	void Start () {
         GameObject[] temp = GameObject.FindGameObjectsWithTag("Level");
@@ -17,11 +19,16 @@ public class LevelManager : MonoBehaviour {
         
         _allLevels[0].StartLevel();
         InvokeRepeating("StartLevel", 0.5f, 0.5f);
+        isfinished = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    
+	    if(_allLevels[_allLevels.Length-1]._isFinished && !isfinished)
+        {
+            isfinished = true;
+            GameManager.GetInstance().EndGame(true);
+        }
 	}
 
     void StartLevel()
@@ -30,9 +37,13 @@ public class LevelManager : MonoBehaviour {
         {
             if (_allLevels[i]._isFinished)
             {
-                if(i != _allLevels.Length)
+                if(i != _allLevels.Length-1)
                 {
                     _allLevels[i + 1].StartLevel();
+                }
+                else
+                {
+                    _allLevels[i].StartLevel();
                 }
             }
         }
