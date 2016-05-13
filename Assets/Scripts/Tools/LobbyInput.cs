@@ -75,7 +75,6 @@ public class LobbyInput : MonoBehaviour
                 else
                 {
                     isReady[i] = false;
-                    Debug.Log(isReady[i]+ " " + i);
                 }
             }
             if (nbOfPlayers < 2 && _playersReady)

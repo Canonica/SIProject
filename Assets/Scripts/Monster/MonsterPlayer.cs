@@ -13,8 +13,6 @@ public class MonsterPlayer : Monster {
         _target = GameObject.Find("Player" + randPlayer);
         InvokeRepeating("FindTarget", 0.5f, 0.5f);
         InvokeRepeating("CheckUnder", 0.5f, 0.5f);
-
-
     }
     
     void Update()

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using DG.Tweening;
 public class SoundManager : MonoBehaviour
 {
 
@@ -23,10 +23,10 @@ public class SoundManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        speakerPrefab = Resources.Load<GameObject>("Speaker");
+        speakerPrefab = Resources.Load<GameObject>("Prefabs/Speaker");
     }
 
-    public GameObject playSound(AudioClip myclip, float volume, bool doRandomPitch)
+    public GameObject playSound(AudioClip myclip, float volume, bool doRandomPitch, bool doIntro)
     {
         speaker = (GameObject)Instantiate(speakerPrefab, Vector3.zero, Quaternion.identity);
         AudioSource audioSource = speaker.GetComponent<AudioSource>();
@@ -34,6 +34,11 @@ public class SoundManager : MonoBehaviour
         {
             float randomPitch = Random.Range(lowPitchRange, highPitchRange);
             audioSource.pitch = randomPitch;
+        }
+        if (doIntro)
+        {
+            audioSource.DOFade(0, 0);
+            audioSource.DOFade(0.8f, 8f);
         }
         audioSource.clip = myclip;
         audioSource.Play();
