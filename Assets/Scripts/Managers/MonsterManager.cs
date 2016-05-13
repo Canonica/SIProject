@@ -13,7 +13,6 @@ public class MonsterManager : MonoBehaviour {
     void Awake()
     {
         _instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public List<GameObject> _listOfMonster;

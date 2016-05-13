@@ -43,7 +43,7 @@ public class LobbyInput : MonoBehaviour
         _playerSpawnPosition = new GameObject[4];
         for (int i = 1; i < 5; i++)
         {
-            _playerPrefab[i - 1] = Resources.Load("Prefabs/GraphedPlayer" + i) as GameObject;
+            _playerPrefab[i - 1] = Resources.Load("Prefabs/GraphedPlayerBenoit" + i) as GameObject;
             _playerSpawnPosition[i-1] = tempSpawner[i-1];
         }
         System.Array.Reverse(_playerSpawnPosition);

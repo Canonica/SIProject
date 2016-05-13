@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour {
         _spawnerPlayers = new GameObject[4];
         for (int i=1; i<5; i++)
         {
-            _playersPrefab[i - 1] = Resources.Load("Prefabs/GraphedPlayer" + i) as GameObject;
+            _playersPrefab[i - 1] = Resources.Load("Prefabs/GraphedPlayerBenoit" + i) as GameObject;
         }
     }
 

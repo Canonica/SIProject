@@ -100,6 +100,10 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.GetInstance().gamestate == GameManager.GameState.menu)
+        {
+            return;
+        }
         if(!m_isFlying)
         {
             transform.position = new Vector3(transform.position.x, m_startPositionY, transform.position.z);

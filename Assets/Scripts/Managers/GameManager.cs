@@ -33,11 +33,13 @@ public class GameManager : MonoBehaviour
         {
             _textWin = GameObject.Find("TextWin").GetComponent<Text>();
             _textWin.DOFade(0, 0);
+            _camera = GameObject.Find("Main Camera2");
         }
     }
 
     public void EndGame(bool won)
     {
+        Destroy(GameObject.Find("PlayerManager"));
         if (!won)
         {
             _textWin.text = "DEFEAT";
