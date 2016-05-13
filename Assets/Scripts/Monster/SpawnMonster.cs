@@ -11,6 +11,7 @@ public class SpawnMonster : MonoBehaviour {
     public List<GameObject> _spawnerList = new List<GameObject>();
     public GameObject _monsterCagePrefab;
     public GameObject _monsterPlayerPrefab;
+    public ParticleSystem _spawnFx;
 
     bool isSpawning;
 	// Use this for initialization
@@ -45,6 +46,7 @@ public class SpawnMonster : MonoBehaviour {
             {
                 currentMonster++;
                 GameObject tempMonster = Instantiate(_monsterCagePrefab, _spawnerList[randomSpawner].transform.position+new Vector3(0, 0.5f, 0), Quaternion.identity) as GameObject;
+                _spawnFx.Play();
                 if(MonsterManager.GetInstance()._listOfMonster.Count > 0 && MonsterManager.GetInstance()._listOfMonster[0] != tempMonster)
                 {
                     MonsterManager.GetInstance().AddMonster(tempMonster);

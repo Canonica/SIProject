@@ -4,7 +4,8 @@ using DG.Tweening;
 
 public class MonsterPlayer : Monster {
     public float _bumpMultiplier;
-
+    public GameObject _spawnFx;
+    public GameObject _bloodFx;
     void Start()
     {
         this._isStuned = false;
@@ -13,7 +14,12 @@ public class MonsterPlayer : Monster {
         _target = GameObject.Find("Player" + randPlayer);
         InvokeRepeating("FindTarget", 0.5f, 0.5f);
         InvokeRepeating("CheckUnder", 0.5f, 0.1f);
-
+        _spawnFx = Resources.Load("Prefabs/P_Spawn") as GameObject;
+        GameObject tempSpawnFx = Instantiate(_spawnFx);
+        _spawnFx.transform.position = this.transform.position;
+        _spawnFx.GetComponent<ParticleSystem>().Play();
+        _bloodFx = Resources.Load("Prefabs/P_Blood") as GameObject;
+        Destroy(tempSpawnFx, 2f);
 
     }
     
@@ -46,11 +52,15 @@ public class MonsterPlayer : Monster {
 
     public override IEnumerator Stun(float parTime)
     {
+        this.GetComponent<ClignotageMonster>().HitClignote();
         this._isStuned = true;
         if (_agent.enabled)
         {
             this._agent.Stop();
         }
+
+        GameObject tempBlood = Instantiate(_bloodFx, transform.position + new Vector3(0, 0.3f, 0),Quaternion.Euler(-90, 0, 0)) as GameObject;
+        Destroy(tempBlood, 2f);
         GetComponent<MonsterAnimationManager>().StopBump();
         Invoke("Reset", parTime);
         yield return null;
