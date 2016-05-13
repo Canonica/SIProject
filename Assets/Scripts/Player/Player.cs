@@ -52,6 +52,31 @@ public class Player : MonoBehaviour {
     public float _timeEndStunAnimation = 0.7f;
 
     float delayToLaunch;
+
+    public AudioClip audioclipGrunt1;
+    public AudioClip audioclipGrunt2;
+    public AudioClip audioclipGrunt3;
+    public AudioClip audioclipGrunt4;
+    public AudioClip audioclipGrunt5;
+    private GameObject speakerMainGrunt;
+
+    public AudioClip audioclipHit1;
+    public AudioClip audioclipHit2;
+    public AudioClip audioclipHit3;
+    public AudioClip audioclipHit4;
+    public AudioClip audioclipHit5;
+    private GameObject speakerMainHit;
+
+    public AudioClip audioclipShieldThrow;
+    private GameObject speakerMainShieldThrow;
+
+    public AudioClip audioclipShield1;
+    public AudioClip audioclipShield2;
+    public AudioClip audioclipShield3;
+    public AudioClip audioclipShield4;
+    public AudioClip audioclipShield5;
+    public AudioClip audioclipShield6;
+    private GameObject speakerMainShieldBump;
     // Use this for initialization
     void Start () {
         m_playerHelping = new List<GameObject>();
@@ -224,6 +249,18 @@ public class Player : MonoBehaviour {
 
     IEnumerator ActivateBump(float parTimer)
     {
+        int randomChance = Random.RandomRange(0, 10);
+        int randomChance2 = Random.RandomRange(0, 10);
+        if (randomChance >= 5)
+        {
+            speakerMainGrunt = SoundManager.Instance.RandomizeSfx(audioclipGrunt1, audioclipGrunt2, audioclipGrunt3, audioclipGrunt4, audioclipGrunt5);
+            speakerMainGrunt.GetComponent<AudioSource>().loop = false;
+        }
+        if(randomChance2 >= 5)
+        {
+            speakerMainShieldBump = SoundManager.Instance.RandomizeSfx(audioclipShield1, audioclipShield2, audioclipShield3, audioclipShield4, audioclipShield5, audioclipShield6);
+            speakerMainShieldBump.GetComponent<AudioSource>().loop = false;
+        }
         float m_currentTime = 0;
         while(m_currentTime < parTimer)
         {
@@ -265,6 +302,12 @@ public class Player : MonoBehaviour {
 
     void ThrowShield()
     {
+        int randomChance = Random.RandomRange(0, 10);
+        if (randomChance >= 5)
+        {
+            speakerMainShieldThrow = SoundManager.Instance.playSound(audioclipShieldThrow, 1, true, false);
+            speakerMainShieldThrow.GetComponent<AudioSource>().loop = false;
+        }
         m_hasShield = false;
         m_isShielding = false;
         GameObject shield = Instantiate(Resources.Load("Prefabs/Shield"), transform.position, Quaternion.identity) as GameObject;
@@ -380,6 +423,12 @@ public class Player : MonoBehaviour {
 
     public IEnumerator Stun()
     {
+        int randomChance = Random.RandomRange(0, 10);
+        if (randomChance >= 8)
+        {
+            speakerMainHit = SoundManager.Instance.RandomizeSfx(audioclipHit1, audioclipHit2, audioclipHit3, audioclipHit4, audioclipHit5);
+            speakerMainHit.GetComponent<AudioSource>().loop = false;
+        }
         clignotage.HitClignote();
         _isStuned = true;
         CancelInvoke("Reset");
